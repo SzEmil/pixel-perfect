@@ -1,11 +1,11 @@
-import { authMiddleware } from "@clerk/nextjs";
- 
-export default authMiddleware({
-//   publicRoutes: ['/anyone-can-visit-this-route'],
+import { authMiddleware } from '@clerk/nextjs';
 
-//   ignoredRoutes: ['/no-auth-in-this-route'],
+export default authMiddleware({
+  publicRoutes: ['/'],
+
+  //   ignoredRoutes: ['/no-auth-in-this-route'],
 });
- 
+
 export const config = {
-  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
+  matcher: ['/((?!.+\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)'],
 };
