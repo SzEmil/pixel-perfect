@@ -1,4 +1,5 @@
 export enum Routes {
     home = "/",
-    dashboard= "/dashboard"
+    dashboard= "/dashboard",
+    signIn= "/sign-in"
 }
