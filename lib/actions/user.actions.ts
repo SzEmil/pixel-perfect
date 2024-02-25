@@ -5,6 +5,8 @@ import User from '../database/models/user.model';
 import { connectToDatabase } from '../database/mongoose';
 import { handleError } from '../utils';
 import { Routes } from '@/constants/endpoints';
+import { auth } from '@clerk/nextjs';
+import { redirect } from 'next/navigation';
 
 export const createUser = async (user: CreateUserParams) => {
   try {
@@ -12,6 +14,24 @@ export const createUser = async (user: CreateUserParams) => {
 
     const newUser = await User.create(user);
     return JSON.parse(JSON.stringify(newUser));
+  } catch (e) {
+    handleError(e);
+  }
+};
+
+export const getCurrentUser = async () => {
+  try {
+    await connectToDatabase();
+    const { userId } = auth();
+
+    if (!userId) {
+      console.error(`User with id ${userId} is not logged in!`);
+      redirect(Routes.home);
+    }
+    const user = await User.findOne({ clerkId: userId });
+
+    if (!user) throw new Error(`User with id: ${userId} not found`);
+    return JSON.parse(JSON.stringify(user));
   } catch (e) {
     handleError(e);
   }
