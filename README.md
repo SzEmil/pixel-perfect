@@ -55,5 +55,5 @@ Transform your images and create stunning visuals with this powerful platform.
 Hello this app was created by me! Enjoy. If you have any question, feel free to
 create new issue ticket. Otherwise ypu can contact me via my socials or email:
 
-- 📱 linkedin</a>
+- 📱 <a href="https://www.linkedin.com/in/emil-szymczyk-209613209/">linkedin</a>
 - 📧 email: emil-szymczyk2@wp.pl
