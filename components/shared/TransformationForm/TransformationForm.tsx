@@ -24,6 +24,8 @@ import { TransformationFormSchemaNames } from './TransformationForm.types';
 import { AspectRatioKey, deepMergeObjects } from '@/lib/utils';
 import { debounce } from 'lodash';
 import { useTransition } from 'react';
+import { MediaUploader } from '../MediaUploader/MediaUploader';
+import { TransformedImage } from '../TransformedImage.tsx/TransformedImage';
 
 export const formSchema = z.object({
   title: z.string(),
@@ -200,6 +202,33 @@ export const TransformationForm = ({
             )}
           </div>
         )}
+
+        <div className="media-uploader-field">
+          <CustomField
+            control={form.control}
+            name={TransformationFormSchemaNames.publicId}
+            className="flex size-full flex-col w-[100%]"
+            render={({ field }) => (
+              <MediaUploader
+                onValueChange={field.onChange}
+                publicId={field.value}
+                image={image}
+                type={type}
+                setImage={setImage}
+              />
+            )}
+          />
+
+          <TransformedImage
+            image={image}
+            type={type}
+            title={form.getValues().title}
+            isTransforming={isTransforming}
+            setIsTransforming={setisTransforming}
+            transformationConfig={transformationConfig}
+          />
+        </div>
+
         <div className="flex flex-col gap-4">
           <Button
             className="submit-button capitalize"
