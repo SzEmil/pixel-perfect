@@ -1,8 +1,10 @@
 import { Header } from '@/components/shared/Header/Header';
+
 import { TransformationForm } from '@/components/shared/TransformationForm/TransformationForm';
+
 import { transformationTypes } from '@/constants';
+
 import { getCurrentUser } from '@/lib/actions/user.actions';
-import { auth } from '@clerk/nextjs';
 
 const AddTransformationTypePage = async ({
   params: { type },
@@ -10,9 +12,11 @@ const AddTransformationTypePage = async ({
   const transformation = transformationTypes[type];
 
   const user = await getCurrentUser();
+
   return (
     <>
       <Header title={transformation.title} subtitle={transformation.subTitle} />
+
       <section className="mt-10">
         <TransformationForm
           action="Add"

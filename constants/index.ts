@@ -1,4 +1,4 @@
-export const navLinks = [
+export const imageNavLinks = [
     {
       label: "Home",
       route: "/dashboard",
@@ -6,27 +6,27 @@ export const navLinks = [
     },
     {
       label: "Image Restore",
-      route: "/dashboard/transformations/add/restore",
+      route: "/dashboard/transformations/image/add/restore",
       icon: "/assets/icons/image.svg",
     },
     {
       label: "Generative Fill",
-      route: "/dashboard/transformations/add/fill",
+      route: "/dashboard/transformations/image/add/fill",
       icon: "/assets/icons/stars.svg",
     },
     {
       label: "Object Remove",
-      route: "/dashboard/transformations/add/remove",
+      route: "/dashboard/transformations/image/add/remove",
       icon: "/assets/icons/scan.svg",
     },
     {
       label: "Object Recolor",
-      route: "/dashboard/transformations/add/recolor",
+      route: "/dashboard/transformations/image/add/recolor",
       icon: "/assets/icons/filter.svg",
     },
     {
       label: "Background Remove",
-      route: "/dashboard/transformations/add/removeBackground",
+      route: "/dashboard/transformations/image/add/removeBackground",
       icon: "/assets/icons/camera.svg",
     },
     {
@@ -38,6 +38,14 @@ export const navLinks = [
       label: "Buy Credits",
       route: "/dashboard/credits",
       icon: "/assets/icons/bag.svg",
+    },
+  ];
+
+  export const videoNavigationLinks = [
+    {
+      label: "Test video option",
+      route: "/dashboard/transformations/video/add/test",
+      icon: "/assets/icons/home.svg",
     },
   ];
   
