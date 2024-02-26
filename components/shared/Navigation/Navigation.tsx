@@ -11,7 +11,7 @@ import { NavigationItem } from './NavigationItem';
 
 type NavigationProps = {
   type?: 'mobile' | 'desktop';
-  title: string,
+  title: string;
   navLinks: {
     label: string;
     route: string;
@@ -19,11 +19,11 @@ type NavigationProps = {
   }[];
 };
 
-export const Navigation = ({ type, navLinks,title }: NavigationProps) => {
+export const Navigation = ({ type, navLinks, title }: NavigationProps) => {
   const pathname = usePathname();
 
   return (
-    <Accordion collapsible>
+    <Accordion collapsible type="single">
       <AccordionItem value="images">
         <AccordionTrigger className="text-dark-600 font-[600] text-[18px] hover:text-green-500;">
           {title}
