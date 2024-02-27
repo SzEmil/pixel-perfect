@@ -5,3 +5,11 @@ export enum TransformationFormSchemaNames {
   prompt = 'prompt',
   publicId = 'publicId',
 }
+
+export type CloudinaryImage = {
+  aspectRatio: string;
+  height: number;
+  publicId: string;
+  secureURL: string;
+  width: number;
+};

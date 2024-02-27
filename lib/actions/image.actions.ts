@@ -41,11 +41,7 @@ export const updateImage = async ({
 }: UpdateImageParams) => {
   try {
     await connectToDatabase();
-    const test = Image.findById(1).populate({
-      path: 'author',
-      model: User,
-      select: '_id firstName lastName ',
-    });
+
     const imageToUpdate = await Image.findById(image._id);
 
     if (!imageToUpdate || imageToUpdate.author.toHexString() !== userId) {

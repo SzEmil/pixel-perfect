@@ -27,6 +27,10 @@ import { useTransition } from 'react';
 import { MediaUploader } from '../MediaUploader/MediaUploader';
 import { TransformedImage } from '../TransformedImage.tsx/TransformedImage';
 import { updateCredits } from '@/lib/actions/user.actions';
+import { getCldImageUrl } from 'next-cloudinary';
+import { addImage, updateImage } from '@/lib/actions/image.actions';
+import { Routes } from '@/constants/endpoints';
+import { useRouter } from 'next/navigation';
 
 export const formSchema = z.object({
   title: z.string(),
@@ -44,6 +48,8 @@ export const TransformationForm = ({
   creditBalance,
   config = null,
 }: TransformationFormProps) => {
+  //TODO: Optimize this component
+  const router = useRouter();
   const transformationType = transformationTypes[type];
 
   const [image, setImage] = useState(data);
@@ -68,9 +74,67 @@ export const TransformationForm = ({
         : defaultValues,
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-  }
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    setIsSubmitting(true);
+    if (data || image) {
+      const transformationURL = getCldImageUrl({
+        width: image?.width,
+        height: image?.height,
+        src: image!.publicId,
+        ...transformationConfig,
+      });
+      const imageData = {
+        title: values.title,
+        publicId: image!.publicId,
+        transformationType: type,
+        width: image!.width,
+        height: image!.height,
+        config: transformationConfig,
+        secureURL: image!.secureURL,
+        transformationURL,
+        aspectRatio: values.aspectRatio,
+        prompt: values.prompt,
+        color: values.color,
+      };
+
+      if (action === 'Add') {
+        try {
+          const newImage = await addImage({
+            image: imageData,
+            userId,
+            path: Routes.dashboard,
+          });
+
+          if (newImage) {
+            form.reset();
+            setImage(data);
+            router.push(`${Routes.transformationsImage}/${newImage._id}`);
+          }
+        } catch (e) {
+          console.error(e);
+        }
+      }
+      if (action === 'Update' && data) {
+        try {
+          const updatedImage = await updateImage({
+            image: {
+              ...imageData,
+              _id: data._id,
+            },
+            userId,
+            path: `${Routes.transformationsImage}/${data._id}`,
+          });
+
+          if (updatedImage) {
+            router.push(`${Routes.transformationsImage}/${updatedImage._id}`);
+          }
+        } catch (e) {
+          console.error(e);
+        }
+      }
+    }
+    setIsSubmitting(false);
+  };
 
   const onSelectFieldHandler = (
     value: string,
@@ -134,6 +198,7 @@ export const TransformationForm = ({
           className="w-full"
           render={({ field }) => <Input {...field} className="input-field" />}
         />
+
         {type === 'fill' && (
           <CustomField
             control={form.control}
@@ -158,6 +223,7 @@ export const TransformationForm = ({
             )}
           />
         )}
+
         {(type === 'remove' || type === 'recolor') && (
           <div className="prompt-field">
             <CustomField
@@ -182,6 +248,7 @@ export const TransformationForm = ({
                 />
               )}
             />
+
             {type === 'recolor' && (
               <CustomField
                 control={form.control}
@@ -245,7 +312,7 @@ export const TransformationForm = ({
           <Button
             className="submit-button capitalize"
             type="submit"
-            disabled={isSubmitting}
+            disabled={isSubmitting || !newTransformation}
           >
             {isSubmitting ? 'Submitting data...' : 'Save image'}
           </Button>
