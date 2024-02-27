@@ -26,6 +26,7 @@ import { debounce } from 'lodash';
 import { useTransition } from 'react';
 import { MediaUploader } from '../MediaUploader/MediaUploader';
 import { TransformedImage } from '../TransformedImage.tsx/TransformedImage';
+import { updateCredits } from '@/lib/actions/user.actions';
 
 export const formSchema = z.object({
   title: z.string(),
@@ -117,7 +118,9 @@ export const TransformationForm = ({
     setNewTransformation(null);
 
     startTransition(async () => {
-      // await updateCredits(userId, creditFee)
+      // update credit fee later, depends on transformation cost
+      const creditFee = -1;
+      await updateCredits(userId, creditFee);
     });
   };
 

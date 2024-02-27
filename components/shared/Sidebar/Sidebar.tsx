@@ -3,7 +3,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Routes } from '@/constants/endpoints';
 import { Navigation } from '../Navigation/Navigation';
-import { imageNavLinks, videoNavigationLinks } from '@/constants';
 
 export const Sidebar = () => {
   return (
@@ -15,18 +14,7 @@ export const Sidebar = () => {
 
         <nav className="sidebar-nav">
           <SignedIn>
-            <div>
-              <Navigation
-                type="desktop"
-                navLinks={imageNavLinks}
-                title="📷 Image Transformation"
-              />
-              <Navigation
-                type="desktop"
-                navLinks={videoNavigationLinks}
-                title="🎥 Video Transformation"
-              />
-            </div>
+            <Navigation type='desktop'/>
             <div className="flex items-center justify-start p-4 gap-2">
               <UserButton afterSignOutUrl={Routes.home} showName={true} />
             </div>
