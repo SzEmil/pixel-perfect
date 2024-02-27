@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Navigation } from '../Navigation/Navigation';
+import { imageNavLinks, videoNavigationLinks } from '@/constants';
 
 export const MobileNav = () => {
   return (
@@ -35,7 +36,16 @@ export const MobileNav = () => {
                   height={23}
                   className="mb-4"
                 />
-                <Navigation type="mobile" />
+                <Navigation
+                  type="desktop"
+                  navLinks={imageNavLinks}
+                  title="📷 Image Transformation"
+                />
+                <Navigation
+                  type="desktop"
+                  navLinks={videoNavigationLinks}
+                  title="🎥 Video Transformation"
+                />
               </>
             </SheetContent>
           </Sheet>

@@ -1,56 +1,53 @@
 'use client';
-import { navLinks } from '@/constants';
-import Link from 'next/link';
-import Image from 'next/image';
+
 import { usePathname } from 'next/navigation';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
+import { NavigationItem } from './NavigationItem';
 
 type NavigationProps = {
   type?: 'mobile' | 'desktop';
+  title: string;
+  navLinks: {
+    label: string;
+    route: string;
+    icon: string;
+  }[];
 };
 
-export const Navigation = ({ type }: NavigationProps) => {
+export const Navigation = ({ type, navLinks, title }: NavigationProps) => {
   const pathname = usePathname();
 
   return (
-    <ul
-      className={`${
-        type === 'desktop' ? 'sidebar-nav_elements' : 'header-nav_elements'
-      }`}
-    >
-      {navLinks.map(link => {
-        const isActive = link.route === pathname;
-
-        return (
-          <li
-            key={link.route}
+    <Accordion collapsible type="single">
+      <AccordionItem value="images">
+        <AccordionTrigger className="text-dark-600 font-[600] text-[18px] hover:text-green-500;">
+          {title}
+        </AccordionTrigger>
+        <AccordionContent>
+          <ul
             className={`${
               type === 'desktop'
-                ? `sidebar-nav_element group ${
-                    isActive
-                      ? 'bg-gradient-to-r from-green-300 to-green-400 text-white'
-                      : 'text-gray-700'
-                  }`
-                : type === 'mobile' &&
-                  `hover:text-green-400 text-dark-700 ${
-                    isActive && 'text-green-400'
-                  } p-18 flex whitespace-nowrap`
+                ? 'sidebar-nav_elements'
+                : 'header-nav_elements'
             }`}
           >
-            <Link className="sidebar-link cursor-pointer" href={link.route}>
-              <Image
-                src={link.icon}
-                alt="logo"
-                width={24}
-                height={24}
-                className={`${
-                  isActive && `${type === 'desktop' ? 'brightness-200' : ''}`
-                }`}
-              />
-              <p>{link.label}</p>
-            </Link>
-          </li>
-        );
-      })}
-    </ul>
+            {navLinks.map(link => {
+              const isActive = link.route === pathname;
+
+              return (
+                <li key={link.route} className="w-full">
+                  <NavigationItem type={type} link={link} isActive={isActive} />
+                </li>
+              );
+            })}
+          </ul>
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>
   );
 };
