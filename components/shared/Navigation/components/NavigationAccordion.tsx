@@ -5,16 +5,15 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { NavigationItem } from './NavigationItem';
-import { IconType } from 'react-icons/lib';
 
 type NavigationProps = {
   type?: 'mobile' | 'desktop';
-  title: string;
+  title: React.ReactNode;
   pathname: string;
   navLinks: {
     label: string;
     route: string;
-    icon: IconType;
+    icon: any;
     disabled?: boolean;
   }[];
 };
@@ -28,10 +27,10 @@ export const NavigationAccordion = ({
   return (
     <Accordion collapsible type="single">
       <AccordionItem value="images">
-        <AccordionTrigger className="text-dark-600 font-[600] text-[18px] hover:text-green-500;">
+        <AccordionTrigger className="ml-4 text-dark-700 dark:text-white font-[600] text-[16px] hover:text-green-500;">
           {title}
         </AccordionTrigger>
-        <AccordionContent>
+        <AccordionContent className='ml-2'>
           <ul
             className={
               type === 'desktop'

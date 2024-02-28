@@ -1,30 +1,18 @@
-import { IoMdHome } from "react-icons/io";
-import { FaUser } from "react-icons/fa";
-import { TbPigMoney } from "react-icons/tb";
-import { FaVideo } from "react-icons/fa";
-import { IoMdImage } from "react-icons/io";
-import { FaFill } from "react-icons/fa";
-import { RiQrScanFill } from "react-icons/ri";
-import { MdMovieFilter } from "react-icons/md";
-import { MdFilterHdr } from "react-icons/md";
-import { LuImage } from "react-icons/lu";
-import { RiImageEditFill } from "react-icons/ri";
-
 export const userNavLinks = {
   home: {
     label: 'Home',
     route: '/dashboard',
-    icon: IoMdHome,
+    icon: 'IoMdHome',
   },
   profile: {
     label: 'Profile',
     route: '/dashboard/profile',
-    icon: FaUser,
+    icon: 'FaUser',
   },
   credits: {
     label: 'Buy Credits',
     route: '/dashboard/credits',
-    icon: TbPigMoney ,
+    icon: 'TbPigMoney',
   },
 };
 
@@ -32,27 +20,27 @@ export const imageNavLinks = [
   {
     label: 'Image Restore',
     route: '/dashboard/transformations/image/add/restore',
-    icon: IoMdImage,
+    icon: 'IoMdImage',
   },
   {
     label: 'Generative Fill',
     route: '/dashboard/transformations/image/add/fill',
-    icon: FaFill,
+    icon: 'FaFill',
   },
   {
     label: 'Object Remove',
     route: '/dashboard/transformations/image/add/remove',
-    icon: RiQrScanFill ,
+    icon: 'RiQrScanFill',
   },
   {
     label: 'Object Recolor',
     route: '/dashboard/transformations/image/add/recolor',
-    icon: RiImageEditFill,
+    icon: 'RiImageEditFill',
   },
   {
     label: 'Background Remove',
     route: '/dashboard/transformations/image/add/removeBackground',
-    icon: LuImage,
+    icon: 'LuImage',
   },
 ];
 
@@ -60,7 +48,7 @@ export const videoNavigationLinks = [
   {
     label: 'Test video option',
     route: '/dashboard/transformations/video/add/test',
-    icon: MdMovieFilter ,
+    icon: 'MdMovieFilter',
     disabled: true,
   },
 ];

@@ -1,6 +1,6 @@
 import { UserButton } from '@clerk/nextjs';
 
-const DashboardPage = () => {
+const DashboardPage = async () => {
   return (
     <div>
       <p>DashboardPage</p>

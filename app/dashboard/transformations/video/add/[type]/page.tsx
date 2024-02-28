@@ -1,4 +1,4 @@
-const AddTransformationType = () => {
+const AddTransformationType = async () => {
   return <div>transformation video</div>;
 };
 

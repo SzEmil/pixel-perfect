@@ -5,6 +5,9 @@ import { cn } from '@/lib/utils';
 import { ClerkProvider } from '@clerk/nextjs';
 import { Routes } from '@/constants/endpoints';
 import { Toaster } from '@/components/ui/toaster';
+import { ThemeProvider } from '@/app/providers';
+import { ThemeSwitcher } from '@/components/ThemeSwitcher/ThemeSwitcher';
+import { Suspense } from 'react';
 
 const IBMPlex = IBM_Plex_Sans({
   subsets: ['latin'],
@@ -17,7 +20,7 @@ export const metadata: Metadata = {
   description: 'Media generator powered by AI',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -28,10 +31,19 @@ export default function RootLayout({
       afterSignInUrl={Routes.dashboard}
       afterSignUpUrl={Routes.dashboard}
     >
-      <html lang="pl">
+      <html lang="en">
         <body className={cn('font-IBMPlex antialiased', IBMPlex.variable)}>
-          {children}
-          <Toaster />
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem={false}
+          >
+            <main>{children}</main>
+            <Toaster />
+            <Suspense>
+              <ThemeSwitcher />
+            </Suspense>
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>

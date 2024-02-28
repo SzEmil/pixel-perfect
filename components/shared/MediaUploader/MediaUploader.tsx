@@ -57,7 +57,7 @@ export const MediaUploader = ({
     >
       {({ open }) => (
         <div className="flex flex-col gap-4 w-full">
-          <h3 className="h3-bold text-dark-600">Default</h3>
+          <h3 className="h3-bold text-dark-600 dark:text-white">Default</h3>
 
           {publicId ? (
             <div className="cursor-pointer overflow-hidden rounded-[10px]">
