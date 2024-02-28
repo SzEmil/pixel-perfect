@@ -1,7 +1,7 @@
 import { MobileNav } from '@/components/shared/MobileNav/MobileNav';
 import { Sidebar } from '@/components/shared/Sidebar/Sidebar';
 
-const Layout = ({ children }: { children: React.ReactNode }) => {
+const Layout = async ({ children }: { children: React.ReactNode }) => {
   return (
     <main className="root">
       <Sidebar />

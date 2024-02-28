@@ -5,6 +5,8 @@ import { CldImage, CldUploadWidget } from 'next-cloudinary';
 import { dataUrl, getImageSize } from '@/lib/utils';
 import Image from 'next/image';
 import { PlaceholderValue } from 'next/dist/shared/lib/get-img-props';
+import { creditFee } from '@/constants';
+import { updateCredits } from '@/lib/actions/user.actions';
 
 type MediaUploaderProps = {
   onValueChange: (value: string) => void;
@@ -12,6 +14,7 @@ type MediaUploaderProps = {
   publicId: string;
   image: any;
   type: string;
+  userId: string;
 };
 
 export const MediaUploader = ({
@@ -20,18 +23,21 @@ export const MediaUploader = ({
   publicId,
   image,
   type,
+  userId,
 }: MediaUploaderProps) => {
   const { toast } = useToast();
 
-  const onUploadSuccessHandler = (result: any) => {
+  const onUploadSuccessHandler = async (result: any) => {
     setImage((prevState: any) => ({
       ...prevState,
       publicId: result?.info?.public_id,
       width: result?.info?.width,
       height: result?.info?.height,
-      secureUrl: result?.info?.secure_url,
+      secureURL: result?.info?.secure_url,
     }));
     onValueChange(result?.info?.public_id);
+
+    await updateCredits(userId, creditFee);
     toast({
       title: 'Image uploaded successfuly',
       description: '1 credit was reduced from your account',
@@ -57,7 +63,7 @@ export const MediaUploader = ({
     >
       {({ open }) => (
         <div className="flex flex-col gap-4 w-full">
-          <h3 className="h3-bold text-dark-600">Default</h3>
+          <h3 className="h3-bold text-dark-600 dark:text-white">Default</h3>
 
           {publicId ? (
             <div className="cursor-pointer overflow-hidden rounded-[10px]">

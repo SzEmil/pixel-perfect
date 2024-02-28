@@ -1,10 +1,12 @@
 import { Header } from '@/components/shared/Header/Header';
-
 import { TransformationForm } from '@/components/shared/TransformationForm/TransformationForm';
-
 import { transformationTypes } from '@/constants';
-
+import { getImageTransformations } from '@/helpers/routes';
 import { getCurrentUser } from '@/lib/actions/user.actions';
+
+// export async function generateStaticParams() {
+//   return getImageTransformations();
+// }
 
 const AddTransformationTypePage = async ({
   params: { type },
@@ -14,9 +16,8 @@ const AddTransformationTypePage = async ({
   const user = await getCurrentUser();
 
   return (
-    <>
+    <div>
       <Header title={transformation.title} subtitle={transformation.subTitle} />
-
       <section className="mt-10">
         <TransformationForm
           action="Add"
@@ -25,7 +26,7 @@ const AddTransformationTypePage = async ({
           creditBalance={user.creditbalance}
         />
       </section>
-    </>
+    </div>
   );
 };
 

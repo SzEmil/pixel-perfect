@@ -1,11 +1,14 @@
-import Image from 'next/image';
 import Link from 'next/link';
+import React from 'react';
+import { getIcon } from '@/helpers/icons';
 
 type NavigationItemProps = {
+  pathname: string;
   link: {
     label: string;
     route: string;
-    icon: string;
+    icon: any;
+    disabled?: boolean;
   };
   type: 'mobile' | 'desktop' | undefined;
   isActive: boolean;
@@ -14,32 +17,33 @@ export const NavigationItem = ({
   type,
   isActive,
   link,
+  pathname,
 }: NavigationItemProps) => {
   return (
     <div
       className={`${
-        type === 'desktop'
-          ? `sidebar-nav_element group ${
+        link.disabled
+          ? 'text-gray-300 dark:text-gray-700'
+          : type === 'desktop'
+          ? `sidebar-nav_element group dark:text-white ${
               isActive
-                ? 'bg-gradient-to-r from-green-300 to-green-400 text-white'
+                ? 'bg-gradient-to-r from-green-300 to-green-500 text-white'
                 : 'text-gray-700'
             }`
           : type === 'mobile' &&
-            `hover:text-green-400 text-dark-700 ${
-              isActive && 'text-green-400'
+            `hover:text-green-400 text-dark-700 dark:text-white ${
+              isActive && 'text-green-500'
             } p-18 flex whitespace-nowrap`
       }`}
     >
       <Link className="sidebar-link cursor-pointer" href={link.route}>
-        <Image
-          src={link.icon}
-          alt="logo"
-          width={24}
-          height={24}
+        <div
           className={`${
             isActive && `${type === 'desktop' ? 'brightness-200' : ''}`
           }`}
-        />
+        >
+          {React.createElement(getIcon(link.icon), { size: 24 })}
+        </div>
         <p>{link.label}</p>
       </Link>
     </div>

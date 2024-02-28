@@ -8,6 +8,7 @@ import { Form } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import {
   aspectRatioOptions,
+  creditFee,
   defaultValues,
   transformationTypes,
 } from '@/constants';
@@ -19,13 +20,19 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { TransformationFormSchemaNames } from './TransformationForm.types';
 import { AspectRatioKey, deepMergeObjects } from '@/lib/utils';
 import { debounce } from 'lodash';
 import { useTransition } from 'react';
 import { MediaUploader } from '../MediaUploader/MediaUploader';
 import { TransformedImage } from '../TransformedImage.tsx/TransformedImage';
+import { updateCredits } from '@/lib/actions/user.actions';
+import { getCldImageUrl } from 'next-cloudinary';
+import { addImage, updateImage } from '@/lib/actions/image.actions';
+import { Routes } from '@/constants/endpoints';
+import { useRouter } from 'next/navigation';
+import { InsufficientCredditsModal } from '../InsufficientCreditsModal/InsufficientCredditsModal';
 
 export const formSchema = z.object({
   title: z.string(),
@@ -43,6 +50,8 @@ export const TransformationForm = ({
   creditBalance,
   config = null,
 }: TransformationFormProps) => {
+  //TODO: Optimize this component
+  const router = useRouter();
   const transformationType = transformationTypes[type];
 
   const [image, setImage] = useState(data);
@@ -67,9 +76,67 @@ export const TransformationForm = ({
         : defaultValues,
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-  }
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    setIsSubmitting(true);
+    if (data || image) {
+      const transformationURL = getCldImageUrl({
+        width: image?.width,
+        height: image?.height,
+        src: image!.publicId,
+        ...transformationConfig,
+      });
+      const imageData = {
+        title: values.title,
+        publicId: image!.publicId,
+        transformationType: type,
+        width: image!.width,
+        height: image!.height,
+        config: transformationConfig,
+        secureURL: image!.secureURL,
+        transformationURL,
+        aspectRatio: values.aspectRatio,
+        prompt: values.prompt,
+        color: values.color,
+      };
+
+      if (action === 'Add') {
+        try {
+          const newImage = await addImage({
+            image: imageData,
+            userId,
+            path: Routes.dashboard,
+          });
+
+          if (newImage) {
+            form.reset();
+            setImage(data);
+            router.push(`${Routes.transformationsImage}/${newImage._id}`);
+          }
+        } catch (e) {
+          console.error(e);
+        }
+      }
+      if (action === 'Update' && data) {
+        try {
+          const updatedImage = await updateImage({
+            image: {
+              ...imageData,
+              _id: data._id,
+            },
+            userId,
+            path: `${Routes.transformationsImage}/${data._id}`,
+          });
+
+          if (updatedImage) {
+            router.push(`${Routes.transformationsImage}/${updatedImage._id}`);
+          }
+        } catch (e) {
+          console.error(e);
+        }
+      }
+    }
+    setIsSubmitting(false);
+  };
 
   const onSelectFieldHandler = (
     value: string,
@@ -117,13 +184,21 @@ export const TransformationForm = ({
     setNewTransformation(null);
 
     startTransition(async () => {
-      // await updateCredits(userId, creditFee)
+      // update credit fee later, depends on transformation cost
+      await updateCredits(userId, transformationType.price * -1);
     });
   };
+
+  useEffect(() => {
+    if (image && (type === 'restore' || type === 'removeBackground')) {
+      setNewTransformation(transformationType.config);
+    }
+  }, [image, transformationType.config, type]);
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        {creditBalance < Math.abs(creditFee) && <InsufficientCredditsModal />}
         <CustomField
           control={form.control}
           name={TransformationFormSchemaNames.title}
@@ -131,6 +206,7 @@ export const TransformationForm = ({
           className="w-full"
           render={({ field }) => <Input {...field} className="input-field" />}
         />
+
         {type === 'fill' && (
           <CustomField
             control={form.control}
@@ -155,6 +231,7 @@ export const TransformationForm = ({
             )}
           />
         )}
+
         {(type === 'remove' || type === 'recolor') && (
           <div className="prompt-field">
             <CustomField
@@ -179,6 +256,7 @@ export const TransformationForm = ({
                 />
               )}
             />
+
             {type === 'recolor' && (
               <CustomField
                 control={form.control}
@@ -215,6 +293,7 @@ export const TransformationForm = ({
                 image={image}
                 type={type}
                 setImage={setImage}
+                userId={userId}
               />
             )}
           />
@@ -242,7 +321,7 @@ export const TransformationForm = ({
           <Button
             className="submit-button capitalize"
             type="submit"
-            disabled={isSubmitting}
+            disabled={isSubmitting || !image}
           >
             {isSubmitting ? 'Submitting data...' : 'Save image'}
           </Button>

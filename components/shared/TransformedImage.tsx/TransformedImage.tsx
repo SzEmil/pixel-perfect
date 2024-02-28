@@ -28,7 +28,7 @@ export const TransformedImage = ({
   return (
     <div className="flex flex-col gap-4">
       <div className="flex-between">
-        <h3 className="h3-bold text-dark-600">Transformed</h3>
+        <h3 className="h3-bold text-dark-600 dark:text-white">Transformed</h3>
         {hasDownload && (
           <button className="download-btn" onClick={downloadHandler}>
             <Image
@@ -47,7 +47,7 @@ export const TransformedImage = ({
             width={getImageSize(type, image, 'width')}
             height={getImageSize(type, image, 'height')}
             src={image?.publicId}
-            alt={image.title}
+            alt={image.title ?? "transformed image"}
             sizes={'(max-width: 756px) 100vw, 50vw'}
             placeholder={dataUrl as PlaceholderValue}
             className="transformed-image"

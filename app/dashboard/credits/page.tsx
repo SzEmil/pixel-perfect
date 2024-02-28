@@ -1,6 +1,6 @@
 import React from 'react'
 
-const CreditsPage = () => {
+const CreditsPage = async () => {
   return (
     <div>page</div>
   )
