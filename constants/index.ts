@@ -138,6 +138,7 @@ export const transformationTypes = {
     subTitle: 'Refine images by removing noise and imperfections',
     config: { restore: true },
     icon: 'image.svg',
+    price: 2,
   },
   removeBackground: {
     type: 'removeBackground',
@@ -145,6 +146,7 @@ export const transformationTypes = {
     subTitle: 'Removes the background of the image using AI',
     config: { removeBackground: true },
     icon: 'camera.svg',
+    price: 2,
   },
   fill: {
     type: 'fill',
@@ -152,6 +154,7 @@ export const transformationTypes = {
     subTitle: "Enhance an image's dimensions using AI outpainting",
     config: { fillBackground: true },
     icon: 'stars.svg',
+    price: 3,
   },
   remove: {
     type: 'remove',
@@ -161,6 +164,7 @@ export const transformationTypes = {
       remove: { prompt: '', removeShadow: true, multiple: true },
     },
     icon: 'scan.svg',
+    price: 3,
   },
   recolor: {
     type: 'recolor',
@@ -170,6 +174,7 @@ export const transformationTypes = {
       recolor: { prompt: '', to: '', multiple: true },
     },
     icon: 'filter.svg',
+    price: 5,
   },
 };
 

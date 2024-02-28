@@ -27,12 +27,12 @@ export const NavigationItem = ({
           : type === 'desktop'
           ? `sidebar-nav_element group dark:text-white ${
               isActive
-                ? 'bg-gradient-to-r from-green-300 to-green-400 text-white'
+                ? 'bg-gradient-to-r from-green-300 to-green-500 text-white'
                 : 'text-gray-700'
             }`
           : type === 'mobile' &&
             `hover:text-green-400 text-dark-700 dark:text-white ${
-              isActive && 'text-green-400'
+              isActive && 'text-green-500'
             } p-18 flex whitespace-nowrap`
       }`}
     >

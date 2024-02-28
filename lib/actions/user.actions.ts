@@ -87,13 +87,25 @@ export const updateCredits = async (userId: string, creditFree: number) => {
     await connectToDatabase();
     const updatedUserCredits = await User.findOneAndUpdate(
       { _id: userId },
-      { $inc: { credits: creditFree } },
+      { $inc: { creditBalance: creditFree } },
       { new: true }
     );
     if (!updatedUserCredits) throw new Error('User credits update failed');
-
+    revalidatePath(Routes.dashboard);
     return JSON.parse(JSON.stringify(updatedUserCredits));
   } catch (e) {
     handleError(e);
   }
+};
+
+export const getUserCreditsBalance = async (userId: string) => {
+  await connectToDatabase();
+
+  const userCreditsBalance = await User.findOne(
+    { _id: userId },
+    { creditBalance: 1 }
+  );
+  if (!userCreditsBalance) throw new Error(`User with id: ${userId} not found`);
+
+  return JSON.parse(JSON.stringify(userCreditsBalance.creditBalance));
 };

@@ -8,6 +8,7 @@ import { Form } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import {
   aspectRatioOptions,
+  creditFee,
   defaultValues,
   transformationTypes,
 } from '@/constants';
@@ -19,7 +20,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { TransformationFormSchemaNames } from './TransformationForm.types';
 import { AspectRatioKey, deepMergeObjects } from '@/lib/utils';
 import { debounce } from 'lodash';
@@ -31,6 +32,7 @@ import { getCldImageUrl } from 'next-cloudinary';
 import { addImage, updateImage } from '@/lib/actions/image.actions';
 import { Routes } from '@/constants/endpoints';
 import { useRouter } from 'next/navigation';
+import { InsufficientCredditsModal } from '../InsufficientCreditsModal/InsufficientCredditsModal';
 
 export const formSchema = z.object({
   title: z.string(),
@@ -183,14 +185,20 @@ export const TransformationForm = ({
 
     startTransition(async () => {
       // update credit fee later, depends on transformation cost
-      const creditFee = -1;
-      await updateCredits(userId, creditFee);
+      await updateCredits(userId, transformationType.price * -1);
     });
   };
+
+  useEffect(() => {
+    if (image && (type === 'restore' || type === 'removeBackground')) {
+      setNewTransformation(transformationType.config);
+    }
+  }, [image, transformationType.config, type]);
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        {creditBalance < Math.abs(creditFee) && <InsufficientCredditsModal />}
         <CustomField
           control={form.control}
           name={TransformationFormSchemaNames.title}
@@ -285,6 +293,7 @@ export const TransformationForm = ({
                 image={image}
                 type={type}
                 setImage={setImage}
+                userId={userId}
               />
             )}
           />
@@ -312,7 +321,7 @@ export const TransformationForm = ({
           <Button
             className="submit-button capitalize"
             type="submit"
-            disabled={isSubmitting || !newTransformation}
+            disabled={isSubmitting || !image}
           >
             {isSubmitting ? 'Submitting data...' : 'Save image'}
           </Button>
