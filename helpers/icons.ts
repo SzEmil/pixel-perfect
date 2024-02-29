@@ -26,7 +26,7 @@ type IconName =
   | 'RiImageEditFill';
 
 export const getIcon = (
-  iconName: IconName
+  iconName: IconName | string
 ):
   | string
   | FunctionComponent<IconBaseProps>
@@ -54,5 +54,7 @@ export const getIcon = (
       return LuImage;
     case 'RiImageEditFill':
       return RiImageEditFill;
+    default:
+      return "";
   }
 };
