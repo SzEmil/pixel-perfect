@@ -20,6 +20,7 @@ export const createUser = async (user: CreateUserParams) => {
 };
 
 export const getCurrentUser = async () => {
+  //TODO: fix get currentUser
   try {
     await connectToDatabase();
     const { userId } = auth();

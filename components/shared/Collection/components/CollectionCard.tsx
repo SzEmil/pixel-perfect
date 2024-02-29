@@ -27,15 +27,17 @@ export const CollectionCard = ({ image }: CollectionCardProps) => {
           className="h-52 w-full rounded-[10px] object-cover"
           sizes="(max-width: 756px) 100vw, (max-width: 1279px) 50vw, 33vw"
         />
-        <div className="flex-between gap-2">
-          {React.createElement(
-            getIcon(
-              transformationTypes[
-                image.transformationType as TransformationTypeKey
-              ].icon
-            ),
-            { size: 24 }
-          )}
+        <div className="flex items-center gap-2 dark-text-dark-600">
+          <div className='w-[24px] h-[24px] dark:text-dark-600'>
+            {React.createElement(
+              getIcon(
+                transformationTypes[
+                  image.transformationType as TransformationTypeKey
+                ].icon
+              ),
+              { size: 24 }
+            )}
+          </div>
           <p className="p-20-semibold mr-3 line-clamp-1 text-dark-600">
             {image.title}
           </p>

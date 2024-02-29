@@ -15,7 +15,6 @@ export const Searchbar = () => {
 
 
   const debouncedSearchProduct = debounce(query => {
-    console.log(query);
     if (query) {
       const newSearchParams = new URLSearchParams(searchParams);
       newSearchParams.set('query', query);

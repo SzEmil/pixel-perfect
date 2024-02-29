@@ -36,7 +36,7 @@ export const TransformedImage = ({
               alt="download"
               height={24}
               width={24}
-              className="pb-[64px]"
+
             />
           </button>
         )}

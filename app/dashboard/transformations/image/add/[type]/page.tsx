@@ -1,7 +1,6 @@
 import { Header } from '@/components/shared/Header/Header';
 import { TransformationForm } from '@/components/shared/TransformationForm/TransformationForm';
 import { transformationTypes } from '@/constants';
-import { getImageTransformations } from '@/helpers/routes';
 import { getCurrentUser } from '@/lib/actions/user.actions';
 
 // export async function generateStaticParams() {
@@ -12,7 +11,6 @@ const AddTransformationTypePage = async ({
   params: { type },
 }: SearchParamProps) => {
   const transformation = transformationTypes[type];
-
   const user = await getCurrentUser();
 
   return (

@@ -14,7 +14,7 @@ const DashboardPage = async ({ searchParams }: SearchParamProps) => {
     <>
       <section className="home">
         <h1 className="home-heading">
-          For photos that are perfect, down to the last pixel.
+          For media that are perfect, down to the last pixel.
         </h1>
         <ul className="flex items-center justify-between w-full gap-20 mt-3">
           {imageNavLinks.map(item => (
