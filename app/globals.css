@@ -220,7 +220,7 @@
 
   /* Home Page */
   .home {
-    @apply sm:flex-center hidden h-72 flex-col gap-4 rounded-[20px] border bg-gradient-to-br from-green-300 to-green-500 bg-cover bg-no-repeat p-10;
+    @apply sm:flex-center hidden  flex-col gap-4 rounded-[20px] border bg-gradient-to-br from-green-300 to-green-500 p-10;
   }
 
   .home-heading {

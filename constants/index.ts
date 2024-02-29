@@ -137,7 +137,7 @@ export const transformationTypes = {
     title: 'Restore Image',
     subTitle: 'Refine images by removing noise and imperfections',
     config: { restore: true },
-    icon: 'image.svg',
+    icon: 'IoMdImage',
     price: 2,
   },
   removeBackground: {
@@ -145,7 +145,7 @@ export const transformationTypes = {
     title: 'Background Remove',
     subTitle: 'Removes the background of the image using AI',
     config: { removeBackground: true },
-    icon: 'camera.svg',
+    icon: 'LuImage',
     price: 2,
   },
   fill: {
@@ -153,7 +153,7 @@ export const transformationTypes = {
     title: 'Generative Fill',
     subTitle: "Enhance an image's dimensions using AI outpainting",
     config: { fillBackground: true },
-    icon: 'stars.svg',
+    icon: 'FaFill',
     price: 3,
   },
   remove: {
@@ -163,7 +163,7 @@ export const transformationTypes = {
     config: {
       remove: { prompt: '', removeShadow: true, multiple: true },
     },
-    icon: 'scan.svg',
+    icon: 'RiQrScanFill',
     price: 3,
   },
   recolor: {
@@ -173,7 +173,7 @@ export const transformationTypes = {
     config: {
       recolor: { prompt: '', to: '', multiple: true },
     },
-    icon: 'filter.svg',
+    icon: 'RiImageEditFill',
     price: 5,
   },
 };
