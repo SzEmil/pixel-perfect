@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Routes } from '@/constants/endpoints';
 import { Navigation } from '../Navigation/Navigation';
 import { UserBalance } from './components/UserBalance';
+import { Suspense } from 'react';
 
 export const Sidebar = async () => {
   return (
@@ -16,11 +17,11 @@ export const Sidebar = async () => {
         <nav className="sidebar-nav">
           <SignedIn>
             <Navigation type="desktop" />
-            <div className="flex flex-col p-4 gap-4">
-              {/* <UserBalance /> */}
-              <UserButton afterSignOutUrl={Routes.home} showName={true} />
-            </div>
           </SignedIn>
+          <div className="flex flex-col p-4 gap-4">
+            <UserBalance />
+          <UserButton afterSignOutUrl={Routes.home} showName={true} />
+          </div>
         </nav>
       </div>
     </aside>

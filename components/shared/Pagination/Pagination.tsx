@@ -44,7 +44,7 @@ export const Pagination = ({ totalPages, page }: PaginationProps) => {
           </p>
 
           <Button
-            className="button w-32 bg-purple-gradient bg-cover text-white"
+            className="button w-32 from-green-300 to-green-500 bg-cover text-white"
             onClick={() => onPageChange('next')}
             disabled={Number(page) >= totalPages}
           >

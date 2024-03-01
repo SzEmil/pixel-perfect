@@ -15,7 +15,13 @@ import {
 import { deleteImage } from '@/lib/actions/image.actions';
 import { Button } from '@/components/ui/button';
 
-export const DeleteConfirmation = ({ imageId }: { imageId: string }) => {
+export const DeleteConfirmation = ({
+  mediaId,
+  mediaName,
+}: {
+  mediaId: string;
+  mediaName: string;
+}) => {
   const [isPending, startTransition] = useTransition();
 
   return (
@@ -26,17 +32,17 @@ export const DeleteConfirmation = ({ imageId }: { imageId: string }) => {
           className="button h-[44px] w-full md:h-[54px]"
           variant="destructive"
         >
-          Delete Image
+          Delete Pixels
         </Button>
       </AlertDialogTrigger>
 
       <AlertDialogContent className="flex flex-col gap-10">
         <AlertDialogHeader>
           <AlertDialogTitle>
-            Are you sure you want to delete this image?
+            Are you sure you want to delete this Pixel?
           </AlertDialogTitle>
           <AlertDialogDescription className="p-16-regular">
-            This will permanently delete this image
+            This will permanently delete this media: {mediaName}
           </AlertDialogDescription>
         </AlertDialogHeader>
 
@@ -46,7 +52,7 @@ export const DeleteConfirmation = ({ imageId }: { imageId: string }) => {
             className="border bg-red-500 text-white hover:bg-red-600"
             onClick={() =>
               startTransition(async () => {
-                await deleteImage(imageId);
+                await deleteImage(mediaId);
               })
             }
           >
