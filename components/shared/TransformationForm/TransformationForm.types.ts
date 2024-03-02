@@ -4,6 +4,8 @@ export enum TransformationFormSchemaNames {
   color = 'color',
   prompt = 'prompt',
   publicId = 'publicId',
+  from = 'from',
+  to = 'to',
 }
 
 export type CloudinaryImage = {
@@ -12,4 +14,6 @@ export type CloudinaryImage = {
   publicId: string;
   secureURL: string;
   width: number;
+  from: string;
+  to: string;
 };

@@ -19,10 +19,10 @@ export const createUser = async (user: CreateUserParams) => {
   }
 };
 
-export const getCurrentUser = async () => {
+export const getCurrentUser = async (userId: string) => {
+  //TODO: fix get currentUser
   try {
     await connectToDatabase();
-    const { userId } = auth();
 
     if (!userId) {
       console.error(`User with id ${userId} is not logged in!`);

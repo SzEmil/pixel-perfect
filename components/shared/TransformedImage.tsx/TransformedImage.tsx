@@ -1,10 +1,11 @@
 'use client';
 
-import { dataUrl, getImageSize } from '@/lib/utils';
+import { dataUrl, download, getImageSize } from '@/lib/utils';
 import { debounce } from 'lodash';
-import { CldImage } from 'next-cloudinary';
+import { CldImage, getCldImageUrl } from 'next-cloudinary';
 import { PlaceholderValue } from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
+import { FaDownload } from 'react-icons/fa6';
 
 declare type TransformedImageProps = {
   image: any;
@@ -24,19 +25,28 @@ export const TransformedImage = ({
   hasDownload = false,
   setIsTransforming,
 }: TransformedImageProps) => {
-  const downloadHandler = () => {};
+  const downloadHandler = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault(),
+      download(
+        getCldImageUrl({
+          width: image?.width,
+          height: image?.height,
+          src: image?.publicId,
+          ...transformationConfig,
+        }),
+        title
+      );
+  };
   return (
     <div className="flex flex-col gap-4">
       <div className="flex-between">
         <h3 className="h3-bold text-dark-600 dark:text-white">Transformed</h3>
         {hasDownload && (
-          <button className="download-btn" onClick={downloadHandler}>
-            <Image
-              src="/assets/icons/download.svg"
-              alt="download"
-              height={24}
-              width={24}
-              className="pb-[64px]"
+          <button className="download-btn hover:text-green-500 transition-all" onClick={downloadHandler}>
+            <FaDownload
+              size={24}
             />
           </button>
         )}
@@ -47,7 +57,7 @@ export const TransformedImage = ({
             width={getImageSize(type, image, 'width')}
             height={getImageSize(type, image, 'height')}
             src={image?.publicId}
-            alt={image.title ?? "transformed image"}
+            alt={image.title ?? 'transformed image'}
             sizes={'(max-width: 756px) 100vw, 50vw'}
             placeholder={dataUrl as PlaceholderValue}
             className="transformed-image"
@@ -57,7 +67,7 @@ export const TransformedImage = ({
             onError={() => {
               debounce(() => {
                 setIsTransforming && setIsTransforming(false);
-              }, 8000);
+              }, 8000)();
             }}
             {...transformationConfig}
           />

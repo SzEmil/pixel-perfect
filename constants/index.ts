@@ -42,6 +42,11 @@ export const imageNavLinks = [
     route: '/dashboard/transformations/image/add/removeBackground',
     icon: 'LuImage',
   },
+  {
+    label: 'Object Replace',
+    route: '/dashboard/transformations/image/add/replace',
+    icon: 'LuImagePlus',
+  },
 ];
 
 export const videoNavigationLinks = [
@@ -176,6 +181,17 @@ export const transformationTypes = {
     icon: 'RiImageEditFill',
     price: 5,
   },
+  replace: {
+    type: 'replace',
+    title: 'Object Replace',
+    subTitle:
+      'Uses generative AI to replace parts of your image with something else.',
+    config: {
+      replace: { to: '', from: '', preserveGeometry: false },
+    },
+    icon: 'LuImagePlus',
+    price: 8,
+  },
 };
 
 export const aspectRatioOptions = {
@@ -205,6 +221,8 @@ export const defaultValues = {
   color: '',
   prompt: '',
   publicId: '',
+  from: '',
+  to: '',
 };
 
 export const creditFee = -1;

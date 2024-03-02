@@ -19,7 +19,7 @@ export const Collection = ({
   return (
     <>
       <div className="collection-heading">
-        <h2 className="h2-bold text-dark-600">Community Edits</h2>
+        <h2 className="h2-bold text-dark-600 dark:text-white">Community Pixels</h2>
         {hasSearch && <Searchbar />}
       </div>
 

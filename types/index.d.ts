@@ -67,6 +67,11 @@ declare type Transformations = {
     multiple?: boolean;
   };
   removeBackground?: boolean;
+  replace?: {
+    to: string;
+    from: string;
+    preserveGeometry?: boolean | undefined;
+  };
 };
 
 // ====== TRANSACTION PARAMS
@@ -91,7 +96,8 @@ declare type TransformationTypeKey =
   | 'fill'
   | 'remove'
   | 'recolor'
-  | 'removeBackground';
+  | 'removeBackground'
+  | 'replace';
 
 // ====== URL QUERY PARAMS
 declare type FormUrlQueryParams = {
@@ -128,6 +134,8 @@ declare type CloudinaryImage = {
   aspectRatio: string | undefined;
   prompt: string | undefined;
   color: string | undefined;
+  from: string | undefined;
+  to: string | undefined;
 };
 declare type TransformationFormProps = {
   action: 'Add' | 'Update';

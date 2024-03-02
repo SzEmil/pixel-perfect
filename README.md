@@ -52,6 +52,8 @@ Transform your images and create stunning visuals with this powerful platform.
 
 ## <a name="first-look">💻 First Look</a>
 
+ I take insipration to create this app from: https://www.youtube.com/watch?v=Ahwoks_dawU&t=8795s
+
 ## <a name="about-me">😎 About Me</a>
 
 Hello this app was created by me! Enjoy. If you have any question, feel free to

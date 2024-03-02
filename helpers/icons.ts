@@ -11,6 +11,7 @@ import { LuImage } from 'react-icons/lu';
 import { RiImageEditFill } from 'react-icons/ri';
 import { IconBaseProps, IconType } from 'react-icons/lib';
 import { ComponentClass, FunctionComponent } from 'react';
+import { LuImagePlus } from "react-icons/lu";
 
 type IconName =
   | 'IoMdHome'
@@ -23,7 +24,8 @@ type IconName =
   | 'MdMovieFilter'
   | 'MdFilterHdr'
   | 'LuImage'
-  | 'RiImageEditFill';
+  | 'RiImageEditFill'
+  | "LuImagePlus"
 
 export const getIcon = (
   iconName: IconName | string
@@ -54,6 +56,8 @@ export const getIcon = (
       return LuImage;
     case 'RiImageEditFill':
       return RiImageEditFill;
+    case 'LuImagePlus':
+      return LuImagePlus
     default:
       return "";
   }

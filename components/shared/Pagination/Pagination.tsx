@@ -33,7 +33,7 @@ export const Pagination = ({ totalPages, page }: PaginationProps) => {
         <PaginationContent className="flex w-full">
           <Button
             disabled={Number(page) <= 1}
-            className="collection-btn"
+            className="button w-32 bg-gradient-to-br from-green-300 to-green-500 bg-cover text-white"
             onClick={() => onPageChange('prev')}
           >
             <PaginationPrevious className="hover:bg-transparent hover:text-white" />
@@ -44,7 +44,7 @@ export const Pagination = ({ totalPages, page }: PaginationProps) => {
           </p>
 
           <Button
-            className="button w-32 bg-purple-gradient bg-cover text-white"
+            className="button w-32 bg-gradient-to-br from-green-300 to-green-500 bg-cover text-white"
             onClick={() => onPageChange('next')}
             disabled={Number(page) >= totalPages}
           >
