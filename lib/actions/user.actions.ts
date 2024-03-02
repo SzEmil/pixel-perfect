@@ -98,6 +98,22 @@ export const updateCredits = async (userId: string, creditFree: number) => {
   }
 };
 
+export const updateUserPlan = async (userId: string, planId: number) => {
+  try {
+    await connectToDatabase();
+    const updatedUserPlan = await User.findOneAndUpdate(
+      { _id: userId },
+      { $inc: { planId: planId } },
+      { new: true }
+    );
+    if (!updatedUserPlan) throw new Error('User update plan failed');
+    revalidatePath(Routes.dashboard);
+    return JSON.parse(JSON.stringify(updatedUserPlan));
+  } catch (e) {
+    handleError(e);
+  }
+};
+
 export const getUserCreditsBalance = async (userId: string) => {
   await connectToDatabase();
 

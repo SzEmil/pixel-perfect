@@ -77,6 +77,7 @@ declare type Transformations = {
 // ====== TRANSACTION PARAMS
 declare type CheckoutTransactionParams = {
   plan: string;
+  planId: number,
   credits: number;
   amount: number;
   buyerId: string;

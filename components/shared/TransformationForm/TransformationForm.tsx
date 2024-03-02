@@ -33,6 +33,7 @@ import { addImage, updateImage } from '@/lib/actions/image.actions';
 import { Routes } from '@/constants/endpoints';
 import { useRouter } from 'next/navigation';
 import { InsufficientCredditsModal } from '../InsufficientCreditsModal/InsufficientCredditsModal';
+import { ActionButtons } from './components/ActionButtons';
 
 export const formSchema = z.object({
   title: z.string(),
@@ -366,24 +367,16 @@ export const TransformationForm = ({
           />
         </div>
 
-        <div className="flex flex-col gap-4">
-          <Button
-            className="submit-button capitalize"
-            type="button"
-            disabled={isTransforming || newTransformation === null}
-            onClick={onTransformHandler}
-          >
-            {isTransforming ? 'Transforming data...' : 'Apply transformation'}
-          </Button>
-
-          <Button
-            className="submit-button capitalize"
-            type="submit"
-            disabled={isSubmitting || !image}
-          >
-            {isSubmitting ? 'Submitting data...' : 'Save image'}
-          </Button>
-        </div>
+        <ActionButtons
+          {...{
+            isSubmitting,
+            isTransforming,
+            image,
+            onTransformHandler,
+            newTransformation,
+          }}
+          transformationPrice={transformationType.price}
+        />
       </form>
     </Form>
   );

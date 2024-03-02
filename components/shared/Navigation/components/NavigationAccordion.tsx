@@ -5,11 +5,13 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { NavigationItem } from './NavigationItem';
+import { User } from '@/lib/database/models/user.model';
 
 type NavigationProps = {
   type?: 'mobile' | 'desktop';
   title: React.ReactNode;
   pathname: string;
+  user: User;
   navLinks: {
     label: string;
     route: string;
@@ -23,6 +25,7 @@ export const NavigationAccordion = ({
   navLinks,
   title,
   pathname,
+  user,
 }: NavigationProps) => {
   return (
     <Accordion collapsible type="single">
@@ -30,7 +33,7 @@ export const NavigationAccordion = ({
         <AccordionTrigger className="ml-4 text-dark-700 dark:text-white font-[600] text-[16px] hover:text-green-500;">
           {title}
         </AccordionTrigger>
-        <AccordionContent className='ml-2'>
+        <AccordionContent className="ml-2">
           <ul
             className={
               type === 'desktop'
@@ -46,6 +49,7 @@ export const NavigationAccordion = ({
                 }`}
               >
                 <NavigationItem
+                  user={user}
                   type={type}
                   link={link}
                   isActive={pathname === link.route}

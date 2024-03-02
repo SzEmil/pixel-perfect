@@ -3,16 +3,19 @@ export const userNavLinks = {
     label: 'Home',
     route: '/dashboard',
     icon: 'IoMdHome',
+    pro: false
   },
   profile: {
     label: 'Profile',
     route: '/dashboard/profile',
     icon: 'FaUser',
+    pro: false
   },
   credits: {
     label: 'Buy Credits',
     route: '/dashboard/credits',
     icon: 'TbPigMoney',
+    pro: false
   },
 };
 
@@ -21,31 +24,37 @@ export const imageNavLinks = [
     label: 'Image Restore',
     route: '/dashboard/transformations/image/add/restore',
     icon: 'IoMdImage',
+    pro: false
   },
   {
     label: 'Generative Fill',
     route: '/dashboard/transformations/image/add/fill',
     icon: 'FaFill',
+    pro: false
   },
   {
     label: 'Object Remove',
     route: '/dashboard/transformations/image/add/remove',
     icon: 'RiQrScanFill',
+    pro: false
   },
   {
     label: 'Object Recolor',
     route: '/dashboard/transformations/image/add/recolor',
     icon: 'RiImageEditFill',
+    pro: false
   },
   {
     label: 'Background Remove',
     route: '/dashboard/transformations/image/add/removeBackground',
     icon: 'LuImage',
+    pro: false
   },
   {
     label: 'Object Replace',
     route: '/dashboard/transformations/image/add/replace',
     icon: 'LuImagePlus',
+    pro: true
   },
 ];
 
@@ -55,6 +64,7 @@ export const videoNavigationLinks = [
     route: '/dashboard/transformations/video/add/test',
     icon: 'MdMovieFilter',
     disabled: true,
+    pro: false
   },
 ];
 
@@ -64,23 +74,15 @@ export const plans = [
     name: 'Free',
     icon: '/assets/icons/free-plan.svg',
     price: 0,
-    credits: 20,
+    credits: 10,
     inclusions: [
       {
-        label: '20 Free Credits',
+        label: '10 Free Credits',
         isIncluded: true,
       },
       {
         label: 'Basic Access to Services',
         isIncluded: true,
-      },
-      {
-        label: 'Priority Customer Support',
-        isIncluded: false,
-      },
-      {
-        label: 'Priority Updates',
-        isIncluded: false,
       },
     ],
   },
@@ -99,14 +101,6 @@ export const plans = [
         label: 'Full Access to Services',
         isIncluded: true,
       },
-      {
-        label: 'Priority Customer Support',
-        isIncluded: true,
-      },
-      {
-        label: 'Priority Updates',
-        isIncluded: false,
-      },
     ],
   },
   {
@@ -122,14 +116,6 @@ export const plans = [
       },
       {
         label: 'Full Access to Services',
-        isIncluded: true,
-      },
-      {
-        label: 'Priority Customer Support',
-        isIncluded: true,
-      },
-      {
-        label: 'Priority Updates',
         isIncluded: true,
       },
     ],
