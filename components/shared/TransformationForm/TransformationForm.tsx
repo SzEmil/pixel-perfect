@@ -216,15 +216,7 @@ export const TransformationForm = ({
           className="w-full"
           render={({ field }) => <Input {...field} className="input-field" />}
         />
-        <button
-          onClick={() => {
-            console.log(newTransformation);
-            console.log(transformationConfig);
-            console.log(form.getValues());
-          }}
-        >
-          show form value
-        </button>
+
         {type === 'fill' && (
           <CustomField
             control={form.control}
