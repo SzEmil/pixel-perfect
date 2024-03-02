@@ -59,6 +59,24 @@ const TransformationsPage = async ({
               </div>
             </li>
           )}
+          {image?.from && (
+            <li className="flex gap-1 items-center">
+              <p>✦</p>
+              <div className="flex gap-1 items-center">
+                <p>From:</p>
+                <p className="text-green-500">{image.from}</p>
+              </div>
+            </li>
+          )}
+          {image?.to && (
+            <li className="flex gap-1 items-center">
+              <p>✦</p>
+              <div className="flex gap-1 items-center">
+                <p>To:</p>
+                <p className="text-green-500">{image.to}</p>
+              </div>
+            </li>
+          )}
         </div>
       </div>
 

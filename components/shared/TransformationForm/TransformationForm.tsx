@@ -40,6 +40,8 @@ export const formSchema = z.object({
   color: z.string().optional(),
   prompt: z.string().optional(),
   publicId: z.string(),
+  from: z.string().optional(),
+  to: z.string().optional(),
 });
 
 export const TransformationForm = ({
@@ -97,6 +99,8 @@ export const TransformationForm = ({
         aspectRatio: values.aspectRatio,
         prompt: values.prompt,
         color: values.color,
+        from: values.from,
+        to: values.to,
       };
 
       if (action === 'Add') {
@@ -168,11 +172,14 @@ export const TransformationForm = ({
           ...prevState?.[type],
           [fieldName === TransformationFormSchemaNames.prompt
             ? 'prompt'
+            : fieldName === TransformationFormSchemaNames.from
+            ? 'from'
             : 'to']: value,
         },
       }));
-      return onChangeField(value);
-    }, 1000);
+    }, 500)();
+
+    return onChangeField(value);
   };
 
   const onTransformHandler = async () => {
@@ -184,14 +191,17 @@ export const TransformationForm = ({
     setNewTransformation(null);
 
     startTransition(async () => {
-      // update credit fee later, depends on transformation cost
       await updateCredits(userId, transformationType.price * -1);
     });
   };
 
   useEffect(() => {
-    if (image && (type === 'restore' || type === 'removeBackground')) {
+    if (
+      image &&
+      (type === 'restore' || type === 'removeBackground' || type === 'replace')
+    ) {
       setNewTransformation(transformationType.config);
+      console.log('setuje transformacje');
     }
   }, [image, transformationType.config, type]);
 
@@ -206,7 +216,15 @@ export const TransformationForm = ({
           className="w-full"
           render={({ field }) => <Input {...field} className="input-field" />}
         />
-
+        <button
+          onClick={() => {
+            console.log(newTransformation);
+            console.log(transformationConfig);
+            console.log(form.getValues());
+          }}
+        >
+          show form value
+        </button>
         {type === 'fill' && (
           <CustomField
             control={form.control}
@@ -216,6 +234,7 @@ export const TransformationForm = ({
                 onValueChange={value =>
                   onSelectFieldHandler(value, field.onChange)
                 }
+                value={field.value}
               >
                 <SelectTrigger className="select-field">
                   <SelectValue placeholder="Select image size" />
@@ -278,6 +297,53 @@ export const TransformationForm = ({
                 )}
               />
             )}
+          </div>
+        )}
+
+        {/* replace */}
+
+        {type === 'replace' && (
+          <div className="prompt-field">
+            <CustomField
+              control={form.control}
+              name={TransformationFormSchemaNames.from}
+              formLabel={'Object to replace'}
+              className="w-full"
+              render={({ field }) => (
+                <Input
+                  value={field.value}
+                  className="input-field"
+                  onChange={e => {
+                    return onInputChangeHandler(
+                      'from',
+                      e.target.value,
+                      type,
+                      field.onChange
+                    );
+                  }}
+                />
+              )}
+            />
+
+            <CustomField
+              control={form.control}
+              name={TransformationFormSchemaNames.to}
+              formLabel="Object to create"
+              render={({ field }) => (
+                <Input
+                  value={field.value}
+                  className="input-field"
+                  onChange={e =>
+                    onInputChangeHandler(
+                      'to',
+                      e.target.value,
+                      type,
+                      field.onChange
+                    )
+                  }
+                />
+              )}
+            />
           </div>
         )}
 
