@@ -18,6 +18,7 @@
 1. 📎 [Introduction](#introduction)
 2. ⚙️ [Tech Stack](#tech-stack)
 3. 💻 [First Look](#first-look)
+4. 😎 [About Me](#about-me)
 
 ## <a name="introduction">📎 Introduction</a>
 
