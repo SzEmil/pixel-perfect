@@ -15,6 +15,13 @@ const Home = async () => {
       <p className="text-black dark:text-white font-[500] max-w-[600px] mt-2 text-[12px] sm:text-[16px] md:text-[18px]">
         AI powered platform to imporve your media.
       </p>
+      <Image
+        src="/assets/images/cloudinary.png"
+        width={200}
+        height={100}
+        alt="cloudinary"
+        className="h-[auto] fixed left-auto bottom-2"
+      />
       {userId ? (
         <Link href={Routes.dashboard}>Go to dashboard</Link>
       ) : (

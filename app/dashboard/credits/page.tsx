@@ -54,7 +54,7 @@ const CreditsPage = async () => {
               </ul>
 
               {plan._id === user.planId ? (
-                <Button variant="outline" className="credits-btn">
+                <Button variant="outline" className="credits-btn pointer-events-none">
                   Current plan
                 </Button>
               ) : (

@@ -1,49 +1,30 @@
 'use client';
 
 import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import {
-  aspectRatioOptions,
-  creditFee,
-  defaultValues,
-  transformationTypes,
-} from '@/constants';
+import { creditFee, transformationTypes } from '@/constants';
 import { CustomField } from './components/CustomField';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useTransition } from 'react';
 import { TransformationFormSchemaNames } from './TransformationForm.types';
-import { AspectRatioKey, deepMergeObjects } from '@/lib/utils';
+import { deepMergeObjects } from '@/lib/utils';
 import { debounce } from 'lodash';
-import { useTransition } from 'react';
-import { MediaUploader } from '../MediaUploader/MediaUploader';
-import { TransformedImage } from '../TransformedImage.tsx/TransformedImage';
 import { updateCredits } from '@/lib/actions/user.actions';
-import { getCldImageUrl } from 'next-cloudinary';
 import { addImage, updateImage } from '@/lib/actions/image.actions';
+import { getCldImageUrl } from 'next-cloudinary';
 import { Routes } from '@/constants/endpoints';
 import { useRouter } from 'next/navigation';
 import { InsufficientCredditsModal } from '../InsufficientCreditsModal/InsufficientCredditsModal';
 import { ActionButtons } from './components/ActionButtons';
-
-export const formSchema = z.object({
-  title: z.string(),
-  aspectRatio: z.string().optional(),
-  color: z.string().optional(),
-  prompt: z.string().optional(),
-  publicId: z.string(),
-  from: z.string().optional(),
-  to: z.string().optional(),
-});
+import { SelectField } from './components/SelectField';
+import {
+  formSchema,
+  useTransformationsForm,
+} from '@/hooks/useTransformationsForm';
+import { ReplaceField } from './components/ReplaceField';
+import { RemoveAndRecolorFields } from './components/RemoveAndRecolorFields';
+import { TransformationViews } from './components/TransformationViews';
+import { useToast } from '@/components/ui/use-toast';
 
 export const TransformationForm = ({
   type,
@@ -53,31 +34,20 @@ export const TransformationForm = ({
   creditBalance,
   config = null,
 }: TransformationFormProps) => {
-  //TODO: Optimize this component
   const router = useRouter();
+  const { toast } = useToast();
   const transformationType = transformationTypes[type];
 
   const [image, setImage] = useState(data);
   const [newTransformation, setNewTransformation] =
     useState<Transformations | null>(null);
+  const [transformationConfig, setTransformationConfig] = useState(config);
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isTransforming, setisTransforming] = useState(false);
-  const [transformationConfig, setTransformationConfig] = useState(config);
   const [isPending, startTransition] = useTransition();
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues:
-      data && action === 'Update'
-        ? {
-            title: data?.title,
-            aspectRatio: data?.aspectRatio,
-            color: data?.color,
-            prompt: data?.prompt,
-            publicId: data?.publicId,
-          }
-        : defaultValues,
-  });
+  const form = useTransformationsForm(data, action);
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsSubmitting(true);
@@ -112,6 +82,13 @@ export const TransformationForm = ({
             path: Routes.dashboard,
           });
 
+          toast({
+            title: 'Image Updade',
+            description: `${transformationType.price} credit was reduced from your account`,
+            duration: 5000,
+            className: 'success-toast',
+          });
+
           if (newImage) {
             form.reset();
             setImage(data);
@@ -132,6 +109,13 @@ export const TransformationForm = ({
             path: `${Routes.transformationsImage}/${data._id}`,
           });
 
+          toast({
+            title: 'Image Updade',
+            description: `${transformationType.price} credit was reduced from your account`,
+            duration: 5000,
+            className: 'success-toast',
+          });
+
           if (updatedImage) {
             router.push(`${Routes.transformationsImage}/${updatedImage._id}`);
           }
@@ -141,23 +125,6 @@ export const TransformationForm = ({
       }
     }
     setIsSubmitting(false);
-  };
-
-  const onSelectFieldHandler = (
-    value: string,
-    onChangeField: (value: string) => string
-  ) => {
-    const currentImageSize = aspectRatioOptions[value as AspectRatioKey];
-
-    setImage((prevState: any) => ({
-      ...prevState,
-      aspectRatio: currentImageSize.aspectRatio,
-      width: currentImageSize.width,
-      height: currentImageSize.height,
-    }));
-    setNewTransformation(transformationType.config);
-
-    return onChangeField(value);
   };
 
   const onInputChangeHandler = (
@@ -219,153 +186,31 @@ export const TransformationForm = ({
         />
 
         {type === 'fill' && (
-          <CustomField
-            control={form.control}
-            name={TransformationFormSchemaNames.aspectRatio}
-            render={({ field }) => (
-              <Select
-                onValueChange={value =>
-                  onSelectFieldHandler(value, field.onChange)
-                }
-                value={field.value}
-              >
-                <SelectTrigger className="select-field">
-                  <SelectValue placeholder="Select image size" />
-                </SelectTrigger>
-                <SelectContent>
-                  {Object.keys(aspectRatioOptions).map(key => (
-                    <SelectItem key={key} value={key} className="select-item">
-                      {aspectRatioOptions[key as AspectRatioKey].label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            )}
+          <SelectField
+            {...{ form, setNewTransformation, setImage, transformationType }}
           />
         )}
 
         {(type === 'remove' || type === 'recolor') && (
-          <div className="prompt-field">
-            <CustomField
-              control={form.control}
-              name={TransformationFormSchemaNames.prompt}
-              formLabel={
-                type === 'remove' ? 'Object to remove' : 'Object to recolor'
-              }
-              className="w-full"
-              render={({ field }) => (
-                <Input
-                  value={field.value}
-                  className="input-field"
-                  onChange={e =>
-                    onInputChangeHandler(
-                      'prompt',
-                      e.target.value,
-                      type,
-                      field.onChange
-                    )
-                  }
-                />
-              )}
-            />
-
-            {type === 'recolor' && (
-              <CustomField
-                control={form.control}
-                name={TransformationFormSchemaNames.color}
-                formLabel="Replacement color"
-                render={({ field }) => (
-                  <Input
-                    value={field.value}
-                    className="input-field"
-                    onChange={e =>
-                      onInputChangeHandler(
-                        'color',
-                        e.target.value,
-                        'recolor',
-                        field.onChange
-                      )
-                    }
-                  />
-                )}
-              />
-            )}
-          </div>
+          <RemoveAndRecolorFields {...{ type, form, onInputChangeHandler }} />
         )}
-
-        {/* replace */}
 
         {type === 'replace' && (
-          <div className="prompt-field">
-            <CustomField
-              control={form.control}
-              name={TransformationFormSchemaNames.from}
-              formLabel={'Object to replace'}
-              className="w-full"
-              render={({ field }) => (
-                <Input
-                  value={field.value}
-                  className="input-field"
-                  onChange={e => {
-                    return onInputChangeHandler(
-                      'from',
-                      e.target.value,
-                      type,
-                      field.onChange
-                    );
-                  }}
-                />
-              )}
-            />
-
-            <CustomField
-              control={form.control}
-              name={TransformationFormSchemaNames.to}
-              formLabel="Object to create"
-              render={({ field }) => (
-                <Input
-                  value={field.value}
-                  className="input-field"
-                  onChange={e =>
-                    onInputChangeHandler(
-                      'to',
-                      e.target.value,
-                      type,
-                      field.onChange
-                    )
-                  }
-                />
-              )}
-            />
-          </div>
+          <ReplaceField {...{ type, onInputChangeHandler, form }} />
         )}
 
-        <div className="media-uploader-field">
-          <CustomField
-            control={form.control}
-            name={TransformationFormSchemaNames.publicId}
-            className="flex size-full flex-col w-[100%]"
-            render={({ field }) => (
-              <MediaUploader
-                onValueChange={field.onChange}
-                publicId={field.value}
-                image={image}
-                type={type}
-                setImage={setImage}
-                userId={userId}
-              />
-            )}
-          />
-
-          <TransformedImage
-            image={image}
-            type={type}
-            title={form.getValues().title}
-            isTransforming={isTransforming}
-            setIsTransforming={setisTransforming}
-            transformationConfig={transformationConfig}
-          />
-        </div>
+        <TransformationViews
+          {...{
+            form,
+            type,
+            image,
+            isTransforming,
+            setImage,
+            setisTransforming,
+            transformationConfig,
+            userId,
+          }}
+        />
 
         <ActionButtons
           {...{

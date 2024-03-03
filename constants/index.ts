@@ -71,13 +71,13 @@ export const videoNavigationLinks = [
 export const plans = [
   {
     _id: 1,
-    name: 'Basic',
+    name: 'Basic Free Plan',
     icon: 'WiStars',
-    price: 10,
-    credits: 30,
+    price: 0,
+    credits: 10,
     inclusions: [
       {
-        label: '30 Credits',
+        label: '10 Credits',
         isIncluded: true,
       },
       {
@@ -107,7 +107,7 @@ export const plans = [
     _id: 3,
     name: 'Premium Package',
     icon: 'GiStarSwirl',
-    price: 199,
+    price: 249,
     credits: 2000,
     inclusions: [
       {
