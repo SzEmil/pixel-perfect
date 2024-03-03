@@ -7,7 +7,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Control } from 'react-hook-form';
-import { formSchema } from '../TransformationForm';
+import { formSchema } from '@/hooks/useTransformationsForm';
 
 type CustomFieldProps = {
   control: Control<z.infer<typeof formSchema>> | undefined;
