@@ -66,7 +66,7 @@ const Checkout = ({
           role="link"
           className="w-full rounded-full bg-gradient-to-br from-green-300 to-green-500 bg-cover text-white"
         >
-          Buy Credits
+          Chenge Plan
         </Button>
       </section>
     </form>

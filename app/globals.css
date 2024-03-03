@@ -224,7 +224,7 @@
   }
 
   .home-heading {
-    @apply h1-semibold max-w-[600px] flex-wrap text-center text-white;
+    @apply h1-semibold max-w-[600px] flex flex-wrap text-center text-white;
   }
 
   /* Credits Page */

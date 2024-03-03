@@ -1,8 +1,6 @@
 import { MobileNav } from '@/components/shared/MobileNav/MobileNav';
 import { Sidebar } from '@/components/shared/Sidebar/Sidebar';
-import { Routes } from '@/constants/endpoints';
-import { auth } from '@clerk/nextjs';
-import { redirect } from 'next/navigation';
+import { SignedIn, auth } from '@clerk/nextjs';
 
 const Layout = async ({ children }: { children: React.ReactNode }) => {
   // const { userId } = auth();
@@ -11,11 +9,13 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
   // }
   return (
     <main className="root">
-      <Sidebar />
-      <MobileNav />
-      <div className="root-container">
-        <div className="wrapper"> {children}</div>
-      </div>
+      <SignedIn>
+          <Sidebar />
+          <MobileNav />
+        <div className="root-container">
+          <div className="wrapper"> {children}</div>
+        </div>
+      </SignedIn>
     </main>
   );
 };

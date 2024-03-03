@@ -15,13 +15,19 @@ const AddTransformationTypePage = async ({
 }: SearchParamProps) => {
   const transformation = transformationTypes[type];
   const { userId } = auth();
-  if(!userId) redirect(Routes.signIn)
-  
+  if (!userId) redirect(Routes.signIn);
   const user = await getCurrentUser(userId);
 
+  if (user.planId === 1 && transformation.pro) {
+    return (
+      <div className="w-full h-screen flex items-center justify-center">
+        <p>You dont have permission to use this transformation</p>
+      </div>
+    );
+  }
   return (
     <div>
-      <Header title={transformation.title} subtitle={transformation.subTitle} />
+      <Header title={transformation.title} subtitle={transformation.subTitle} transformationPrice={transformation.price}/>
       <section className="mt-10">
         <TransformationForm
           action="Add"

@@ -23,7 +23,7 @@ export const Sidebar = async () => {
         <nav className="sidebar-nav">
           <SignedIn>
             <div className="overflow-y-scroll max-h-[700px]">
-              <Navigation type="desktop" user={user}/>
+                <Navigation type="desktop" user={user} />
             </div>
           </SignedIn>
           <div className="flex flex-col p-4 gap-4">

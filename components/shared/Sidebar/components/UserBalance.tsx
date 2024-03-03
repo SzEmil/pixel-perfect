@@ -10,7 +10,7 @@ export const UserBalance = async () => {
   const user = await getCurrentUser(userId);
   return (
     userId && (
-      <div className="flex gap-2 items-center text-black dark:text-white">
+      <div className="flex gap-2 items-center text-dark-700 dark:text-white">
         <BiSolidCoinStack size={24} />
         <p className="font-[600]">
           Credits:{' '}

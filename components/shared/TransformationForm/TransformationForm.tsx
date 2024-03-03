@@ -375,7 +375,6 @@ export const TransformationForm = ({
             onTransformHandler,
             newTransformation,
           }}
-          transformationPrice={transformationType.price}
         />
       </form>
     </Form>

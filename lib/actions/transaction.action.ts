@@ -6,6 +6,7 @@ import { redirect } from 'next/navigation';
 import { handleError } from '../utils';
 import { connectToDatabase } from '../database/mongoose';
 import { getUserById, updateCredits, updateUserPlan } from './user.actions';
+import User from '../database/models/user.model';
 
 export const checkoutCredits = async (
   transaction: CheckoutTransactionParams
@@ -14,7 +15,7 @@ export const checkoutCredits = async (
 
   const amount = +transaction.amount * 100;
 
-  const user = await getUserById(transaction.buyerId);
+  const user = await User.findById(transaction.buyerId);
 
   if (!user) throw new Error('User for payment not found');
   const session = await stripe.checkout.sessions.create({
@@ -41,8 +42,16 @@ export const checkoutCredits = async (
       buyerId: transaction.buyerId,
     },
     mode: 'payment',
-    success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/profile`,
-    cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/dashboard`,
+    success_url: `${
+      process.env.NODE_ENV === 'development'
+        ? 'http://localhost:3000'
+        : process.env.NEXT_PUBLIC_SERVER_URL
+    }/dashboard/profile`,
+    cancel_url: `${
+      process.env.NODE_ENV === 'development'
+        ? 'http://localhost:3000'
+        : process.env.NEXT_PUBLIC_SERVER_URL
+    }/dashboard`,
   });
 
   if (!session) throw new Error('Error during creating payment session');

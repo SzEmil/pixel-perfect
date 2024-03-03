@@ -52,12 +52,51 @@ Transform your images and create stunning visuals with this powerful platform.
 
 ## <a name="first-look">💻 First Look</a>
 
- I take insipration to create this app from: https://www.youtube.com/watch?v=Ahwoks_dawU&t=8795s
+✨ Welcome to Pixel Perfect! Enhance your visual content with the power of
+AI-powered image and video transformations. Let Pixel Perfect elevate your media
+with ease! ![home](./public/assets/images/pixel1.png)
+
+Pixel Perfect streamlines user authentication with a seamless Clerk integration,
+ensuring a smooth and secure experience.
+![clerk](./public/assets/images/pixel2.png)
+
+🪄 Explore Diverse Media Transformations:
+
+- Background Removal: Isolate your subjects beautifully by removing unwanted
+  backgrounds with a single click.
+  ![backgroundRemove](./public/assets/images/pixel3.png)
+
+- Generative Fill: Unleash creativity by intelligently filling missing areas in
+  your images with AI-generated content.
+  ![generativeFill](./public/assets/images/pixel4.png)
+
+- Image Restoration: Breathe new life into old or damaged photos with AI-powered
+  restoration, repairing noise, scratches, and imperfections.
+  ![restore](./public/assets/images/pixel5.png)
+
+- Object Replacement: Replace unwanted objects seamlessly with a different
+  object of your choice, creating an ideal composition.
+  ![replace](./public/assets/images/pixel6.png)
+
+- Recolor Object on Image: Modify the color of a specific object within your
+  image while preserving the surrounding elements.
+  ![recolor](./public/assets/images/pixel7.png)
+
+- Object Removal: Remove unwanted objects from your images with precision,
+  leaving a clean and clutter-free result.
+  ![remove](./public/assets/images/pixel8.png)
+
+** Stay Tuned for Video Transformations:** Exciting new features for video
+transformations are coming soon, providing even more comprehensive media
+enhancement capabilities.
+
+I take insipration to create this app from:
+https://www.youtube.com/watch?v=Ahwoks_dawU&t=8795s
 
 ## <a name="about-me">😎 About Me</a>
 
 Hello this app was created by me! Enjoy. If you have any question, feel free to
-create new issue ticket. Otherwise ypu can contact me via my socials or email:
+create new issue ticket. Otherwise you can contact me via my socials or email:
 
 - 📱 <a href="https://www.linkedin.com/in/emil-szymczyk-209613209/">linkedin</a>
 - 📧 email: emil-szymczyk2@wp.pl

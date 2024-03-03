@@ -6,7 +6,6 @@ type ActionButtonsProps = {
   onTransformHandler: () => Promise<void>;
   newTransformation: Transformations | null;
   image: CloudinaryImage | null;
-  transformationPrice: number;
 };
 
 export const ActionButtons = ({
@@ -15,7 +14,6 @@ export const ActionButtons = ({
   onTransformHandler,
   newTransformation,
   image,
-  transformationPrice,
 }: ActionButtonsProps) => {
   return (
     <div className="flex flex-col gap-4">
@@ -27,7 +25,7 @@ export const ActionButtons = ({
       >
         {isTransforming
           ? 'Transforming data...'
-          : `Apply transformation for ${transformationPrice} credits`}
+          : `Apply transformation`}
       </Button>
 
       <Button

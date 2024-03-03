@@ -51,9 +51,9 @@ export const NavigationItem = ({
           {React.createElement(getIcon(link.icon), { size: 24 })}
         </div>
         <p>{link.label}</p>
-        {link.pro && (
+        {link.pro && user.planId === 1 && (
           <div className="absolute right-0 top-0  text-green-500">
-            <p className='border-solid p-2 border-white '>pro</p>
+            <p className="border-solid p-2 border-white ">pro</p>
           </div>
         )}
       </Link>

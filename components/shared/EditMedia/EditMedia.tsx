@@ -29,7 +29,7 @@ export const EditMedia = async ({
       <div className="mt-4 space-y-4">
         <Button asChild type="button" className="submit-button capitalize">
           <Link href={`${Routes.transformationsImage}/${mediaId}/update`}>
-            Update Pixel
+            Update Pixels
           </Link>
         </Button>
 
