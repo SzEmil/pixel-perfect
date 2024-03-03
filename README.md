@@ -87,6 +87,8 @@ ensuring a smooth and secure experience.
   leaving a clean and clutter-free result.
   ![remove](./public/assets/images/pixel8.png)
 
+** Buying credits from stripe is currently disabled**
+
 ** Stay Tuned for Video Transformations:** Exciting new features for video
 transformations are coming soon, providing even more comprehensive media
 enhancement capabilities.
