@@ -11,7 +11,11 @@ import { LuImage } from 'react-icons/lu';
 import { RiImageEditFill } from 'react-icons/ri';
 import { IconBaseProps, IconType } from 'react-icons/lib';
 import { ComponentClass, FunctionComponent } from 'react';
-import { LuImagePlus } from "react-icons/lu";
+import { LuImagePlus } from 'react-icons/lu';
+import { WiStars } from 'react-icons/wi';
+import { GiStarSwirl } from 'react-icons/gi';
+import { GiKnockedOutStars } from 'react-icons/gi';
+import { GiTwoCoins } from 'react-icons/gi';
 
 type IconName =
   | 'IoMdHome'
@@ -25,7 +29,11 @@ type IconName =
   | 'MdFilterHdr'
   | 'LuImage'
   | 'RiImageEditFill'
-  | "LuImagePlus"
+  | 'LuImagePlus'
+  | 'WiStars'
+  | 'GiStarSwirl'
+  | 'GiKnockedOutStars'
+  | 'GiTwoCoins';
 
 export const getIcon = (
   iconName: IconName | string
@@ -57,8 +65,16 @@ export const getIcon = (
     case 'RiImageEditFill':
       return RiImageEditFill;
     case 'LuImagePlus':
-      return LuImagePlus
+      return LuImagePlus;
+    case 'WiStars':
+      return WiStars;
+    case 'GiStarSwirl':
+      return GiStarSwirl;
+    case 'GiKnockedOutStars':
+      return GiKnockedOutStars;
+    case 'GiTwoCoins':
+      return GiTwoCoins;
     default:
-      return "";
+      return '';
   }
 };

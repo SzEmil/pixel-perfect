@@ -16,7 +16,7 @@ const DashboardPage = async ({ searchParams }: SearchParamProps) => {
         <h1 className="home-heading">
           For media that are perfect, down to the last pixel.
         </h1>
-        <ul className="flex items-center justify-between w-full gap-20 mt-3">
+        <ul className="flex items-center lg:justify-between  flex-wrap md:flex-nowrap w-full gap-10 md:gap-20 mt-3">
           {imageNavLinks.map(item => (
             <li key={item.label} className="text-white">
               <Link href={item.route} className="flex flex-col items-center">
@@ -51,6 +51,7 @@ const DashboardPage = async ({ searchParams }: SearchParamProps) => {
           images={images?.data ?? []}
           hasSearch={true}
           totalPages={images?.totalPage}
+          title='Community Pixels'
         />
       </section>
     </>

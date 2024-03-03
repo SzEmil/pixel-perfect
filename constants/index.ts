@@ -3,16 +3,19 @@ export const userNavLinks = {
     label: 'Home',
     route: '/dashboard',
     icon: 'IoMdHome',
+    pro: false
   },
   profile: {
     label: 'Profile',
     route: '/dashboard/profile',
     icon: 'FaUser',
+    pro: false
   },
   credits: {
     label: 'Buy Credits',
     route: '/dashboard/credits',
-    icon: 'TbPigMoney',
+    icon: 'GiTwoCoins',
+    pro: false
   },
 };
 
@@ -21,31 +24,37 @@ export const imageNavLinks = [
     label: 'Image Restore',
     route: '/dashboard/transformations/image/add/restore',
     icon: 'IoMdImage',
+    pro: false
   },
   {
     label: 'Generative Fill',
     route: '/dashboard/transformations/image/add/fill',
     icon: 'FaFill',
+    pro: false
   },
   {
     label: 'Object Remove',
     route: '/dashboard/transformations/image/add/remove',
     icon: 'RiQrScanFill',
+    pro: false
   },
   {
     label: 'Object Recolor',
     route: '/dashboard/transformations/image/add/recolor',
     icon: 'RiImageEditFill',
+    pro: false
   },
   {
     label: 'Background Remove',
     route: '/dashboard/transformations/image/add/removeBackground',
     icon: 'LuImage',
+    pro: false
   },
   {
     label: 'Object Replace',
     route: '/dashboard/transformations/image/add/replace',
     icon: 'LuImagePlus',
+    pro: true
   },
 ];
 
@@ -55,31 +64,24 @@ export const videoNavigationLinks = [
     route: '/dashboard/transformations/video/add/test',
     icon: 'MdMovieFilter',
     disabled: true,
+    pro: false
   },
 ];
 
 export const plans = [
   {
     _id: 1,
-    name: 'Free',
-    icon: '/assets/icons/free-plan.svg',
-    price: 0,
-    credits: 20,
+    name: 'Basic',
+    icon: 'WiStars',
+    price: 10,
+    credits: 30,
     inclusions: [
       {
-        label: '20 Free Credits',
+        label: '30 Credits',
         isIncluded: true,
       },
       {
-        label: 'Basic Access to Services',
-        isIncluded: true,
-      },
-      {
-        label: 'Priority Customer Support',
-        isIncluded: false,
-      },
-      {
-        label: 'Priority Updates',
+        label: 'Full Access to Services',
         isIncluded: false,
       },
     ],
@@ -87,7 +89,7 @@ export const plans = [
   {
     _id: 2,
     name: 'Pro Package',
-    icon: '/assets/icons/free-plan.svg',
+    icon: 'GiKnockedOutStars',
     price: 40,
     credits: 120,
     inclusions: [
@@ -99,20 +101,12 @@ export const plans = [
         label: 'Full Access to Services',
         isIncluded: true,
       },
-      {
-        label: 'Priority Customer Support',
-        isIncluded: true,
-      },
-      {
-        label: 'Priority Updates',
-        isIncluded: false,
-      },
     ],
   },
   {
     _id: 3,
     name: 'Premium Package',
-    icon: '/assets/icons/free-plan.svg',
+    icon: 'GiStarSwirl',
     price: 199,
     credits: 2000,
     inclusions: [
@@ -122,14 +116,6 @@ export const plans = [
       },
       {
         label: 'Full Access to Services',
-        isIncluded: true,
-      },
-      {
-        label: 'Priority Customer Support',
-        isIncluded: true,
-      },
-      {
-        label: 'Priority Updates',
         isIncluded: true,
       },
     ],
@@ -144,6 +130,7 @@ export const transformationTypes = {
     config: { restore: true },
     icon: 'IoMdImage',
     price: 2,
+    pro: false,
   },
   removeBackground: {
     type: 'removeBackground',
@@ -152,6 +139,7 @@ export const transformationTypes = {
     config: { removeBackground: true },
     icon: 'LuImage',
     price: 2,
+    pro: false,
   },
   fill: {
     type: 'fill',
@@ -160,6 +148,7 @@ export const transformationTypes = {
     config: { fillBackground: true },
     icon: 'FaFill',
     price: 3,
+    pro: false,
   },
   remove: {
     type: 'remove',
@@ -170,6 +159,7 @@ export const transformationTypes = {
     },
     icon: 'RiQrScanFill',
     price: 3,
+    pro: false,
   },
   recolor: {
     type: 'recolor',
@@ -180,6 +170,7 @@ export const transformationTypes = {
     },
     icon: 'RiImageEditFill',
     price: 5,
+    pro: false,
   },
   replace: {
     type: 'replace',
@@ -191,6 +182,7 @@ export const transformationTypes = {
     },
     icon: 'LuImagePlus',
     price: 8,
+    pro: true,
   },
 };
 

@@ -8,6 +8,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { ThemeProvider } from '@/app/providers';
 import { ThemeSwitcher } from '@/components/ThemeSwitcher/ThemeSwitcher';
 import { Suspense } from 'react';
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const IBMPlex = IBM_Plex_Sans({
   subsets: ['latin'],
@@ -44,6 +45,7 @@ export default async function RootLayout({
               <ThemeSwitcher />
             </Suspense>
           </ThemeProvider>
+          <SpeedInsights />
         </body>
       </html>
     </ClerkProvider>

@@ -8,6 +8,7 @@ type CollectionProps = {
   hasSearch?: boolean;
   totalPages?: number;
   page: string;
+  title: string
 };
 
 export const Collection = ({
@@ -15,11 +16,12 @@ export const Collection = ({
   hasSearch = false,
   totalPages = 1,
   page,
+  title
 }: CollectionProps) => {
   return (
     <>
       <div className="collection-heading">
-        <h2 className="h2-bold text-dark-600 dark:text-white">Community Pixels</h2>
+        <h2 className="h2-bold text-dark-600 dark:text-white">{title}</h2>
         {hasSearch && <Searchbar />}
       </div>
 

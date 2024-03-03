@@ -15,7 +15,7 @@ type UpdateImagePageProps = {
 
 const UpdateImagePage = async ({ params: { id } }: UpdateImagePageProps) => {
   const { userId } = auth();
-  if (!userId) redirect(Routes.home);
+  if(!userId) redirect(Routes.signIn)
 
   const user: User = await getCurrentUser(userId);
   const image = await getImageById(id);

@@ -13,21 +13,30 @@ export const Searchbar = () => {
   const router = useRouter();
   const [query, setQuery] = useState('');
 
-
-  const debouncedSearchProduct = debounce(query => {
-    if (query) {
-      const newSearchParams = new URLSearchParams(searchParams);
-      newSearchParams.set('query', query);
-      router.push(`${pathName}?${newSearchParams.toString()}`, {
-        scroll: false,
-      });
-    } else {
-      router.push(pathName, { scroll: false });
-    }
-  }, 1000);
+  // const debouncedSearchProduct = debounce(query => {
+  //   if (query) {
+  //     const newSearchParams = new URLSearchParams(searchParams);
+  //     newSearchParams.set('query', query);
+  //     router.push(`${pathName}?${newSearchParams.toString()}`, {
+  //       scroll: false,
+  //     });
+  //   } else {
+  //     router.push(pathName, { scroll: false });
+  //   }
+  // }, 1000);
 
   useEffect(() => {
-    debouncedSearchProduct(query);
+    debounce(() => {
+      if (query) {
+        const newSearchParams = new URLSearchParams(searchParams);
+        newSearchParams.set('query', query);
+        router.push(`${pathName}?${newSearchParams.toString()}`, {
+          scroll: false,
+        });
+      } else {
+        router.push(pathName, { scroll: false });
+      }
+    }, 1000)();
   }, [query]);
 
   return (

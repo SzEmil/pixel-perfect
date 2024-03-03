@@ -18,65 +18,72 @@ const TransformationsPage = async ({
     <>
       <Header title={image.title} />
       <div className="mt-7 text-dark-600 dark:text-white w-full">
-        <div className="flex text-[14px] gap-3 mt-2">
-          <li className="flex gap-3 items-center">
-            <div className="flex gap-1 items-center">
-              <p>Transformation Type:</p>
-              <p className="text-green-500">{image.transformationType}</p>
-            </div>
+        <div className="w-full flex justify-between mt-2 flex-wrap">
+          <div className="flex text-[14px] gap-3 flex-wrap">
+            <li className="flex gap-3 items-center">
+              <div className="flex gap-1 items-center">
+                <p>Transformation Type:</p>
+                <p className="text-green-500">{image.transformationType}</p>
+              </div>
+              <p>✦</p>
+            </li>
+            <li className="flex gap-3 items-center">
+              <div className="flex gap-1 items-center">
+                <p>Dimensions:</p>
+                <p className="text-green-500">{`${image.width}x${image.height}px`}</p>
+              </div>
+            </li>
+            {image?.aspectRatio && (
+              <li className="flex gap-3 items-center">
+                <p>✦</p>
+                <div className="flex gap-1 items-center">
+                  <p>Aspect Ratio:</p>
+                  <p className="text-green-500">{image.aspectRatio}</p>
+                </div>
+              </li>
+            )}
+            {image?.color && (
+              <li className="flex gap-3 items-center">
+                <p>✦</p>
+                <div className="flex gap-1 items-center">
+                  <p>Color:</p>
+                  <p className="text-green-500">{image.color}</p>
+                </div>
+              </li>
+            )}
+            {image?.prompt && (
+              <li className="flex gap-3 items-center">
+                <p>✦</p>
+                <div className="flex gap-1 items-center">
+                  <p>Prompt:</p>
+                  <p className="text-green-500">{image.prompt}</p>
+                </div>
+              </li>
+            )}
+            {image?.from && (
+              <li className="flex gap-3 items-center">
+                <p>✦</p>
+                <div className="flex gap-1 items-center">
+                  <p>From:</p>
+                  <p className="text-green-500">{image.from}</p>
+                </div>
+              </li>
+            )}
+            {image?.to && (
+              <li className="flex gap-3 items-center">
+                <p>✦</p>
+                <div className="flex gap-1 items-center">
+                  <p>To:</p>
+                  <p className="text-green-500">{image.to}</p>
+                </div>
+              </li>
+            )}
+          </div>
+          <div className="flex gap-1 items-center">
             <p>✦</p>
-          </li>
-          <li className="flex gap-3 items-center">
-            <div className="flex gap-1 items-center">
-              <p>Dimensions:</p>
-              <p className="text-green-500">{`${image.width}x${image.height}px`}</p>
-            </div>
-          </li>
-          {image?.aspectRatio && (
-            <li className="flex gap-3 items-center">
-              <p>✦</p>
-              <div className="flex gap-1 items-center">
-                <p>Aspect Ratio:</p>
-                <p className="text-green-500">{image.aspectRatio}</p>
-              </div>
-            </li>
-          )}
-          {image?.color && (
-            <li className="flex gap-3 items-center">
-              <p>✦</p>
-              <div className="flex gap-1 items-center">
-                <p>Color:</p>
-                <p className="text-green-500">{image.color}</p>
-              </div>
-            </li>
-          )}
-          {image?.prompt && (
-            <li className="flex gap-1 items-center">
-              <p>✦</p>
-              <div className="flex gap-1 items-center">
-                <p>Prompt:</p>
-                <p className="text-green-500">{image.prompt}</p>
-              </div>
-            </li>
-          )}
-          {image?.from && (
-            <li className="flex gap-1 items-center">
-              <p>✦</p>
-              <div className="flex gap-1 items-center">
-                <p>From:</p>
-                <p className="text-green-500">{image.from}</p>
-              </div>
-            </li>
-          )}
-          {image?.to && (
-            <li className="flex gap-1 items-center">
-              <p>✦</p>
-              <div className="flex gap-1 items-center">
-                <p>To:</p>
-                <p className="text-green-500">{image.to}</p>
-              </div>
-            </li>
-          )}
+            <p>Pixels from:</p>
+            <p className="text-green-500">{image.author.username}</p>
+          </div>
         </div>
       </div>
 
