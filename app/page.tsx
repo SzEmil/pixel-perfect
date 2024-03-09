@@ -5,10 +5,10 @@ import { redirect } from 'next/navigation';
 import Image from 'next/image';
 
 const Home = async () => {
-  const { userId } = auth();
-  if (userId) {
-    redirect(Routes.dashboard);
-  }
+   const { userId } = auth();
+  // if (userId) {
+  //   redirect(Routes.dashboard);
+  // }
   return (
     <div className="flex w-screen h-screen flex-col items-center justify-center px-5 bg-white dark:bg-[#0d1117]">
       <Image src="/logo.png" alt="logo" width={1280} height={720} />

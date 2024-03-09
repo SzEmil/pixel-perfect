@@ -10,7 +10,7 @@ import { UserBalance } from '../Sidebar/components/UserBalance';
 
 export const MobileNav = async () => {
   const { userId } = auth();
-  if (!userId) redirect(Routes.signIn);
+  if (!userId) return null
   const user = await getUserById(userId);
   return (
     <header className="header z-[9999]">
