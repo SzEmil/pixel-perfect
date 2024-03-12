@@ -12,10 +12,10 @@ pipeline {
     //         label 'docker-jenkins-agent'
     //         }
     //   }
-    // tools {
-    //     nodejs "node"
-    //     dockerTool "docker"
-    // }
+    tools {
+        nodejs "node"
+        dockerTool "docker"
+    }
 
     stages {
         
