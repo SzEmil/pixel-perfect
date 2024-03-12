@@ -19,6 +19,12 @@ pipeline {
 
     stages {
         
+        stage('Cloning our Git') {
+            steps {
+                git branch: 'main', url: 'https://github.com/SzEmil/pixel-perfect.git'
+            }
+        }
+
         stage('Build') {
             steps {
                 echo 'building'
@@ -26,11 +32,6 @@ pipeline {
             }
         }
 
-        stage('Cloning our Git') {
-            steps {
-                git branch: 'main', url: 'https://github.com/SzEmil/pixel-perfect.git'
-            }
-        }
 
         stage('Building Docker Image') {
             steps {
@@ -43,19 +44,12 @@ pipeline {
         stage('Deploying Docker Image to Dockerhub') {
             steps {
                 script {
-                    docker.withRegistry('', registryCredential) {
+                    docker.withRegistry('https://registry.hub.docker.com', 'registryCredential') {
                     dockerImage.push()
                     }
                 }
             }
         }
-
-        stage('Cleaning Up') {
-            steps{
-                sh "docker rmi --force $registry:$BUILD_NUMBER"
-            }
-        }
-
         
     }
 }
