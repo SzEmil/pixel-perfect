@@ -11,7 +11,7 @@ import { getCurrentUser } from '@/lib/actions/user.actions';
 
 export const Sidebar = async () => {
   const { userId } = auth();
-  if (!userId) redirect(Routes.signIn);
+  if (!userId) return null
   const user: User = await getCurrentUser(userId);
   return (
     <aside className="sidebar">
