@@ -5,25 +5,13 @@ pipeline {
     registryCredential = 'docker-hub-credentials'
     dockerImage = ''
     }
-
     agent any
-    // agent { 
-    //     node {
-    //         label 'docker-jenkins-agent'
-    //         }
-    //   }
     tools {
         nodejs "node"
-  //      dockerTool "docker"
     }
 
     stages {
-        
-        stage('Cloning our Git') {
-            steps {
-                git branch: 'main', url: 'https://github.com/SzEmil/pixel-perfect.git'
-            }
-        }
+
 
         stage('Build') {
             steps {
