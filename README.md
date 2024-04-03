@@ -93,7 +93,7 @@ ensuring a smooth and secure experience.
 transformations are coming soon, providing even more comprehensive media
 enhancement capabilities.
 
-I take insipration to create this app from:
+I take insipration to create this app from JavascriptMastery:
 https://www.youtube.com/watch?v=Ahwoks_dawU&t=8795s
 
 ## <a name="about-me">😎 About Me</a>
