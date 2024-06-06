@@ -1,6 +1,11 @@
 import mongoose, { Mongoose } from 'mongoose';
 
-const MONGODB_URL = process.env.MONGODB_URL;
+const MongoConnectionVariant = process.env.K8S_Variant;
+const MONGODB_URL =
+  MongoConnectionVariant === 'true'
+    ? `mongodb://${process.env.USER_NAME}:${process.env.USER_PWD}@${process.env.DB_URL}`
+    : process.env.MONGODB_URL;
+const MongoDbName = process.env.MONGO_DB_NAME ?? "pixelPerfect"
 
 type MongooseConnection = {
   conn: Mongoose | null;
@@ -24,7 +29,7 @@ export const connectToDatabase = async () => {
   cashed.promise =
     cashed.promise ||
     mongoose.connect(MONGODB_URL, {
-      dbName: 'pixelPerfect',
+      dbName: MongoDbName,
       bufferCommands: false,
     });
   cashed.conn = await cashed.promise;

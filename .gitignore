@@ -35,3 +35,7 @@ cypress.env.json
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# kubernetes secrets
+webapp-secret.yaml
+mongo-secret.yaml

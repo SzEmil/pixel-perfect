@@ -1,0 +1,119 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp-deployment
+  labels:
+    app: webapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webapp
+  template:
+    metadata:
+      labels:
+        app: webapp
+    spec:
+      containers:
+        - name: webapp
+          image: szemil/my-nextjs-app:v2
+          ports:
+            - containerPort: 3000
+          env:
+          - name: K8S_Variant
+            valueFrom:
+              secretKeyRef:
+                name: webapp-secret
+                key: K8S_Variant
+          - name: MONGO_USER_NAME
+            valueFrom:
+              secretKeyRef:
+                name: mongo-secret
+                key: mongo-user
+          - name: MONGO_USER_PWD
+            valueFrom: 
+              secretKeyRef:
+                name: mongo-secret
+                key: mongo-password
+          - name: MONGODB_URL
+            valueFrom:
+              configMapKeyRef:
+                name: mongo-config
+                key: mongo-url
+
+          - name: NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+            valueFrom:
+              secretKeyRef:
+                name: webapp-secret
+                key: NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+          - name: CLERK_SECRET_KEY
+            valueFrom: 
+              secretKeyRef:
+                name: webapp-secret
+                key: CLERK_SECRET_KEY
+          - name: NEXT_PUBLIC_CLERK_SIGN_IN_URL
+            valueFrom: 
+              secretKeyRef:
+                name: webapp-secret
+                key: NEXT_PUBLIC_CLERK_SIGN_IN_URL
+          - name: NEXT_PUBLIC_CLERK_SIGN_UP_URL
+            valueFrom:
+              secretKeyRef:
+                name: webapp-secret
+                key: NEXT_PUBLIC_CLERK_SIGN_UP_URL
+          - name: WEBHOOK_SECRET
+            valueFrom: 
+              secretKeyRef:
+                name: webapp-secret
+                key: WEBHOOK_SECRET
+          - name: NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
+            valueFrom: 
+              secretKeyRef:
+                name: webapp-secret
+                key: NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
+          - name: CLOUDINARY_API_KEY
+            valueFrom: 
+              secretKeyRef:
+                name: webapp-secret
+                key: CLOUDINARY_API_KEY
+          - name: CLOUDINARY_API_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: webapp-secret
+                key: CLOUDINARY_API_SECRET
+          - name: NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+            valueFrom: 
+              secretKeyRef:
+                name: webapp-secret
+                key: NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+          - name: STRIPE_SECRET_KEY
+            valueFrom: 
+              secretKeyRef:
+                name: webapp-secret
+                key: STRIPE_SECRET_KEY
+          - name: STRIPE_WEBHOOK_SECRET
+            valueFrom: 
+              secretKeyRef:
+                name: webapp-secret
+                key: STRIPE_WEBHOOK_SECRET
+          - name: CLOUDINARY_API_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: webapp-secret
+                key: NEXT_PUBLIC_SERVER_URL
+          
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapp-service
+spec:
+  type: NodePort
+  selector:
+    app: webapp
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+      nodePort: 30100
